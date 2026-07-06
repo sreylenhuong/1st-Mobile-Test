@@ -191,3 +191,107 @@
     height: clamp(110px, 28svh, 150px);
   }
 }
+
+/* ================================
+   v2.7.2 Mobile true-fit layout
+   The mobile folder footprint becomes one card wide.
+   This prevents the two-card open-folder model from making
+   the phone page feel wider than the screen.
+================================ */
+
+@media (max-width: 640px) {
+  html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  body {
+    width: 100%;
+    height: 100%;
+    min-height: 100dvh;
+    overflow: hidden;
+    position: fixed;
+    inset: 0;
+    touch-action: none;
+  }
+
+  .app {
+    width: 100%;
+    height: 100dvh;
+    min-height: 100dvh;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .stage {
+    width: 100%;
+    height: 100dvh;
+    max-width: 100%;
+    max-height: 100dvh;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+  }
+
+  .folder-system {
+    width: var(--card-w);
+    height: var(--card-h);
+    transform: translateY(0) scale(1);
+  }
+
+  .stage.is-open .folder-system {
+    transform: translateY(-2px) scale(1);
+  }
+
+  .base {
+    left: 0;
+    width: var(--card-w);
+  }
+
+  .left-cover {
+    left: 0;
+    width: var(--cover-w);
+  }
+
+  .right-cover {
+    right: 0;
+    width: var(--cover-w);
+  }
+
+  .left-cover .cover-print {
+    left: 0;
+  }
+
+  .right-cover .cover-print {
+    right: 0;
+  }
+
+  .controls {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .card-click-zone {
+    top: 0;
+    transform: none;
+    width: 50%;
+    height: 100%;
+  }
+
+  .prev-zone { left: 0; }
+  .next-zone { right: 0; }
+}
+
+@supports (height: 100svh) {
+  @media (max-width: 640px) {
+    body,
+    .app,
+    .stage {
+      height: 100svh;
+      min-height: 100svh;
+      max-height: 100svh;
+    }
+  }
+}

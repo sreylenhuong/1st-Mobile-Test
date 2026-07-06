@@ -83,6 +83,23 @@ function initCards({
   nextZone.addEventListener('click', goNext);
   previousZone.addEventListener('click', goPrevious);
 
+  /*
+    Mobile tap navigation belongs to the paper card, not a full-screen overlay.
+    This keeps real controls, like Google Maps and Close Invitation, tappable.
+  */
+  cards.forEach((card) => {
+    card.addEventListener('click', (event) => {
+      if (!window.matchMedia('(max-width: 640px)').matches) return;
+      if (card.dataset.position !== 'active') return;
+      if (event.target.closest('a, button')) return;
+
+      const bounds = card.getBoundingClientRect();
+      const tapX = event.clientX - bounds.left;
+
+      tapX < bounds.width / 2 ? goPrevious() : goNext();
+    });
+  });
+
   initGestureNavigation({ stage, goNext, goPrevious });
   updateCards();
 }

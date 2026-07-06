@@ -50,8 +50,12 @@
     perspective: 1400px;
   }
 
+  /*
+    Mobile centres the physical card/base footprint, not the full open-folder width.
+    The covers still fold outward, but the invitation card remains visually centred.
+  */
   .folder-system {
-    width: var(--folder-open-w);
+    width: var(--card-w);
     height: var(--card-h);
     transform: translateY(0) scale(1);
   }
@@ -60,7 +64,22 @@
     transform: translateY(-2px) scale(1);
   }
 
+  .base {
+    left: 0;
+    width: var(--card-w);
+  }
+
+  .left-cover {
+    left: 0;
+  }
+
+  .right-cover {
+    right: 0;
+  }
+
   .card-stack {
+    left: 0;
+    bottom: 0;
     transform: translateY(6px) scale(.99);
   }
 
@@ -83,12 +102,12 @@
 
   .card p:not(.eyebrow),
   .stationery-body p {
-    font-size: clamp(.92rem, 4.05vw, 1.06rem);
-    line-height: 1.5;
+    font-size: clamp(.92rem, 3.95vw, 1.04rem);
+    line-height: 1.48;
   }
 
   .stationery-hero {
-    font-size: clamp(1.72rem, 7.8vw, 2.18rem);
+    font-size: clamp(1.72rem, 7.5vw, 2.12rem);
     line-height: 1.04;
   }
 
@@ -138,18 +157,12 @@
   }
 
   .venue-card .finding-us p {
-    font-size: clamp(.72rem, 3.15vw, .88rem);
-    line-height: 1.28;
-  }
-
-  .map-button {
-    min-height: 26px;
-    padding: 5px 12px;
-    font-size: clamp(.58rem, 2.45vw, .68rem);
+    font-size: clamp(.74rem, 3.15vw, .86rem);
+    line-height: 1.26;
   }
 
   .venue-photo img {
-    height: clamp(118px, 31svh, 170px);
+    height: clamp(104px, 25svh, 150px);
   }
 
   .countdown div {
@@ -168,10 +181,8 @@
   }
 
   .card-click-zone {
-    width: 22vw;
-    height: var(--card-h);
-    top: 50%;
-    transform: translateY(-50%);
+    width: 50vw;
+    height: 100svh;
   }
 
   .prev-zone { left: 0; }
@@ -180,11 +191,25 @@
   #indicator {
     bottom: 10px;
   }
+
+  /* Keep links/buttons on the card tappable on mobile.
+     Tap navigation is handled by JavaScript on the active card instead. */
+  .card-click-zone {
+    pointer-events: none !important;
+  }
+
+  .map-button,
+  .close-button {
+    position: relative;
+    z-index: 45;
+    pointer-events: auto;
+  }
+
 }
 
 @media (max-width: 380px) {
   :root {
-    --card-w: min(95vw, calc((100svh - 28px) / 1.78));
+    --card-w: min(94vw, calc((100svh - 34px) / 1.78));
   }
 
   .card {

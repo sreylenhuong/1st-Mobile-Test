@@ -1,0 +1,228 @@
+/* ================================
+   Project Tulip v2.2
+   Romantic typography system
+================================ */
+
+:root {
+  --font-ui: Inter, system-ui, sans-serif;
+  --font-serif: 'EB Garamond', 'Cormorant Garamond', serif;
+  --font-script: 'Alex Brush', cursive;
+}
+
+body { font-family: var(--font-ui); }
+
+h1,
+h2,
+.cover-title span,
+.countdown strong,
+#prevCard,
+#nextCard {
+  font-family: var(--font-serif);
+}
+
+/* Closed folder cover: the words are treated like ink printed into the cover. */
+.cover-title { top: 20%; }
+
+.cover-title span {
+  display: block;
+  font-size: clamp(1.08rem, 4.6vw, 1.72rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: rgba(112, 82, 72, .34);
+  text-shadow:
+    0 1px 0 rgba(255,255,255,.72),
+    0 -1px 0 rgba(132, 96, 82, .12);
+}
+
+/* Card 1: quiet luxury, with no background tulip pattern. */
+.card.cover-card {
+  justify-content: center;
+  gap: clamp(4px, 1.1vw, 8px);
+  padding-block: clamp(24px, 5.8vw, 38px);
+}
+
+.card.cover-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.card.cover-card::before {
+  /* Keep only a very soft paper texture. The tulip pattern was removed because it competed with the layout. */
+  background-image:
+    linear-gradient(90deg, rgba(120, 90, 68, .018) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(120, 90, 68, .015) 1px, transparent 1px);
+  background-size: 18px 18px, 24px 24px;
+  opacity: .12;
+  mix-blend-mode: multiply;
+}
+
+.card.cover-card::after {
+  content: "";
+  position: absolute;
+  inset: clamp(10px, 3vw, 18px);
+  border: 1px solid rgba(207, 164, 125, .14);
+  pointer-events: none;
+}
+
+
+.card.cover-card .eyebrow {
+  margin: 0 0 clamp(6px, 1.7vw, 12px);
+  font-family: var(--font-serif);
+  font-size: clamp(.52rem, 1.75vw, .66rem);
+  font-weight: 600;
+  letter-spacing: .32em;
+  text-transform: uppercase;
+  color: rgba(184, 137, 115, .92);
+  text-shadow: 0 1px 0 rgba(255,255,255,.72);
+  transform: translateY(clamp(-18px, -4vw, -10px));
+}
+
+.name-lockup {
+  width: 100%;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  gap: 0;
+  transform: translateY(clamp(2px, 1.2vw, 8px));
+}
+
+.bride-name {
+  display: block;
+  width: 100%;
+  font-family: var(--font-script);
+  font-size: clamp(2.5rem, 10.2vw, 4.65rem);
+  font-weight: 400;
+  line-height: .78;
+  color: rgba(69, 53, 47, .98);
+  text-wrap: balance;
+  text-shadow: 0 1px 0 rgba(255,255,255,.72);
+}
+
+.rings-mark {
+  width: clamp(23px, 6.5vw, 37px);
+  height: auto;
+  object-fit: contain;
+  opacity: .76;
+  margin-top: clamp(12px, 3.3vw, 22px);
+  margin-bottom: clamp(8px, 2.4vw, 15px);
+  filter:
+    sepia(.18)
+    saturate(.72)
+    opacity(.9)
+    drop-shadow(0 4px 6px rgba(81, 51, 42, .07));
+}
+
+.date-lockup {
+  width: min(100%, 294px);
+  margin-top: clamp(18px, 4.7vw, 32px);
+  font-family: var(--font-serif);
+  color: var(--muted);
+  transform: translateY(clamp(2px, .9vw, 7px));
+}
+
+.date-main-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  justify-items: center;
+  gap: clamp(7px, 2.4vw, 14px);
+}
+
+.date-side {
+  position: relative;
+  width: 100%;
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: clamp(4px, 1.4vw, 7px);
+  font-size: clamp(.49rem, 1.55vw, .62rem);
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(122, 89, 72, .72);
+}
+
+.date-side::before,
+.date-side::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(170, 116, 93, .45), transparent);
+}
+
+.date-number {
+  min-width: clamp(38px, 10vw, 58px);
+  padding-inline: clamp(4px, 1.2vw, 7px);
+  border-inline: 1px solid rgba(170, 116, 93, .34);
+  font-size: clamp(1.78rem, 6.9vw, 3rem);
+  font-weight: 400;
+  line-height: .86;
+  letter-spacing: .02em;
+  color: rgba(170, 116, 93, .88);
+  text-shadow: 0 1px 0 rgba(255,255,255,.72);
+}
+
+.date-year {
+  display: block;
+  margin-top: clamp(10px, 2.5vw, 16px);
+  font-size: clamp(.84rem, 2.9vw, 1.16rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: .24em;
+  color: rgba(170, 116, 93, .86);
+  text-shadow: 0 1px 0 rgba(255,255,255,.72);
+}
+
+
+
+/* Shared stationery card typography: Cards 2–6
+   Detailed overrides live in cards.css beside the reusable card layout. */
+.stationery-number {
+  font-family: var(--font-serif);
+  font-size: clamp(1rem, 3.8vw, 1.18rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: .1em;
+  color: var(--rose-gold);
+  text-shadow: 0 1px 0 rgba(255,255,255,.72);
+}
+
+
+/* Shared stationery signature: the CD monogram echoes the wax seal.
+   It is centred with left/right: 0 + auto margins instead of translateX.
+   This avoids Card 1's transform/animation creating an optical offset. */
+.card-signature {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: clamp(5px, 1.5vw, 8px);
+  width: clamp(34px, 9vw, 46px);
+  margin-inline: auto;
+  transform: none;
+  opacity: .30;
+  pointer-events: none;
+  z-index: 1;
+  filter: drop-shadow(0 1px 0 rgba(255,255,255,.92));
+}
+
+.card.cover-card > .card-signature,
+.cover-card .card-signature {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: clamp(5px, 1.5vw, 8px);
+  margin-inline: auto;
+  transform: none;
+  z-index: 2;
+}
+
+.card-signature img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* The old tulip signatures are retired in favour of the shared CD monogram. */

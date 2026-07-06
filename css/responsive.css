@@ -1,0 +1,36 @@
+/* ================================
+   Responsive refinements
+================================ */
+
+@media (max-width: 640px) {
+  :root {
+    --card-w: min(86vw, 390px, calc((100svh - 104px) / 1.78));
+  }
+
+  .app { padding: 10px; }
+
+  .stage {
+    height: min(100svh, calc(var(--card-h) + 90px));
+    overflow: visible;
+  }
+
+  .folder-system { width: var(--folder-open-w); }
+
+  .stage.is-open .folder-system {
+    transform: translateY(-2px) scale(.94);
+  }
+
+  #prevCard { left: calc(50% - (var(--card-w) * .56)); }
+  #nextCard { right: calc(50% - (var(--card-w) * .56)); }
+
+  #prevCard,
+  #nextCard {
+    width: 38px;
+    height: 62px;
+    font-size: 1.75rem;
+  }
+
+  .card-click-zone {
+    width: calc(var(--card-w) / 2);
+  }
+}

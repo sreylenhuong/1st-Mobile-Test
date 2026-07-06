@@ -1,0 +1,16 @@
+/* ================================
+   Motion and accessibility
+================================ */
+
+@keyframes sealSparkle {
+  0%, 72%, 100% { filter: brightness(1); }
+  78% { filter: brightness(1.18); }
+  83% { filter: brightness(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition-duration: .01ms !important;
+  }
+}

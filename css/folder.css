@@ -146,7 +146,7 @@
 .cover-title span {
   display: block;
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2.15rem, 9.4vw, 4.05rem);
+  font-size: clamp(2.15rem, calc(var(--card-w) * 0.1146), 4.05rem);
   font-weight: 500;
   line-height: .9;
   letter-spacing: .02em;

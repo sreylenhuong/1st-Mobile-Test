@@ -34,3 +34,58 @@
     width: calc(var(--card-w) / 2);
   }
 }
+@media (max-width: 600px) {
+  body {
+    min-height: 100svh;
+    overflow: hidden;
+  }
+
+  .invitation-stage {
+    width: 100vw;
+    height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+  }
+
+  .folder {
+    width: min(94vw, 390px);
+    height: min(88svh, 620px);
+    max-height: 620px;
+  }
+
+  .card-stack,
+  .invitation-card {
+    width: 100%;
+    height: 100%;
+  }
+
+  .invitation-card {
+    padding: clamp(24px, 6vw, 34px);
+  }
+
+  .card-title {
+    font-size: clamp(1.2rem, 5.2vw, 1.55rem);
+  }
+
+  .card-hero,
+  .details-hero,
+  .timeline-hero,
+  .venue-hero,
+  .thank-you-hero {
+    font-size: clamp(1.8rem, 8vw, 2.45rem);
+  }
+
+  .card-body,
+  .message-card p,
+  .venue-copy,
+  .finding-copy {
+    font-size: clamp(0.9rem, 3.8vw, 1.05rem);
+    line-height: 1.55;
+  }
+
+  .cover-title {
+    font-size: clamp(2rem, 9vw, 2.8rem);
+  }
+}

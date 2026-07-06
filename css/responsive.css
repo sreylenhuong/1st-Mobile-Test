@@ -1,23 +1,22 @@
 /* ================================
    Responsive refinements
-   Project Tulip v3.0 - mobile foundation
+   Mobile-first polish v2.7
 ================================ */
 
 @media (max-width: 640px) {
   :root {
     /*
-      Mobile treats the visible card/base as the centred object.
-      The folder covers still exist physically, but they are allowed to move
-      outside the clipped phone viewport when the folder opens.
+      Mobile uses the card as the hero object.
+      The opened folder can extend outside the viewport, but the visible card
+      remains large, centred, and readable.
     */
-    --card-w: min(93vw, 390px, calc((100svh - 32px) / 1.78));
+    --card-w: min(92vw, 390px, calc((100svh - 42px) / 1.78));
   }
 
   html,
   body {
     width: 100%;
     max-width: 100%;
-    height: 100%;
     min-height: 100svh;
     margin: 0;
     padding: 0;
@@ -49,53 +48,70 @@
     display: grid;
     place-items: center;
     perspective: 1400px;
-    touch-action: pan-y;
   }
 
-  /*
-    The mobile stage is one visible card wide. Because the base starts after
-    the left cover, we shift the physical folder left by half a card so the
-    base/card centre aligns with the phone centre.
-  */
   .folder-system {
-    width: var(--card-w);
+    width: var(--folder-open-w);
     height: var(--card-h);
-    transform: translateX(calc(var(--cover-w) * -1)) translateY(0) scale(1);
+    transform: translateY(0) scale(1);
   }
 
   .stage.is-open .folder-system {
-    transform: translateX(calc(var(--cover-w) * -1)) translateY(-2px) scale(1);
-  }
-
-  .stage.is-closing .folder-system,
-  .stage.is-open.is-closing .folder-system {
-    transform: translateX(calc(var(--cover-w) * -1)) translateY(0) scale(1);
+    transform: translateY(-2px) scale(1);
   }
 
   .card-stack {
-    transform: translateY(5px) scale(.99);
+    transform: translateY(6px) scale(.99);
   }
 
   .stage.is-open .card-stack {
-    transform: translateY(-8px) scale(1);
+    transform: translateY(-10px) scale(1);
   }
 
   .card {
-    left: 9px;
-    top: 9px;
-    width: calc(100% - 18px);
-    height: calc(100% - 18px);
-    padding: clamp(24px, 6.8vw, 34px) clamp(20px, 5.8vw, 30px);
+    left: 10px;
+    top: 10px;
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+    padding: clamp(22px, 6.2vw, 30px) clamp(18px, 5.4vw, 26px);
   }
 
   .stationery-card {
-    padding-top: clamp(30px, 8vw, 42px);
-    padding-bottom: clamp(48px, 12vw, 68px);
+    padding-top: clamp(26px, 7.2vw, 34px);
+    padding-bottom: clamp(54px, 13vw, 70px);
+  }
+
+  .card p:not(.eyebrow),
+  .stationery-body p {
+    font-size: clamp(.86rem, 3.7vw, 1rem);
+    line-height: 1.52;
+  }
+
+  .stationery-hero {
+    font-size: clamp(1.55rem, 7vw, 2rem);
+    line-height: 1.06;
+  }
+
+  .card .stationery-title,
+  .card.cover-card .eyebrow {
+    font-size: clamp(.62rem, 2.4vw, .72rem);
+  }
+
+  .bride-name {
+    font-size: clamp(3rem, 14vw, 4.4rem);
+  }
+
+  .rings-mark {
+    width: clamp(28px, 8vw, 36px);
+  }
+
+  .date-number {
+    font-size: clamp(2.1rem, 9vw, 2.8rem);
   }
 
   .cover-title span {
-    font-size: clamp(1.65rem, 7.4vw, 2.35rem);
-    letter-spacing: .17em;
+    font-size: clamp(1.6rem, 7.2vw, 2.35rem);
+    letter-spacing: .18em;
   }
 
   .seal-print,
@@ -104,36 +120,74 @@
     height: clamp(92px, 25vw, 108px);
   }
 
+  .details-body .ceremony-time {
+    font-size: clamp(4.6rem, 19vw, 5.9rem) !important;
+  }
+
+  .timeline-body {
+    width: min(100%, 29ch);
+    gap: clamp(10px, 3vw, 14px);
+  }
+
+  .timeline-title {
+    font-size: clamp(.66rem, 2.5vw, .78rem) !important;
+  }
+
+  .timeline-time {
+    font-size: clamp(.94rem, 3.7vw, 1.12rem) !important;
+  }
+
+  .venue-card .finding-us p {
+    font-size: clamp(.68rem, 2.9vw, .82rem);
+    line-height: 1.28;
+  }
+
+  .venue-photo img {
+    height: clamp(118px, 31svh, 170px);
+  }
+
+  .countdown div {
+    inline-size: clamp(86px, 24vw, 104px);
+    block-size: clamp(86px, 24vw, 104px);
+  }
+
+  #prevCard { left: 8px; }
+  #nextCard { right: 8px; }
+
   #prevCard,
   #nextCard {
-    width: 42px;
-    height: 68px;
+    width: 44px;
+    height: 72px;
     font-size: 2rem;
   }
 
-  #prevCard { left: 4px; }
-  #nextCard { right: 4px; }
-
-  /*
-    Desktop tap zones cover the card. On mobile they block real links like
-    Google Maps, so mobile navigation uses swipe + visible arrow buttons only.
-  */
   .card-click-zone {
-    display: none;
-    pointer-events: none;
+    width: 50vw;
+    height: 100svh;
   }
 
+  .prev-zone { left: 0; }
+  .next-zone { right: 0; }
+
   #indicator {
-    bottom: 8px;
+    bottom: 10px;
   }
 }
 
 @media (max-width: 380px) {
   :root {
-    --card-w: min(94vw, calc((100svh - 24px) / 1.78));
+    --card-w: min(94vw, calc((100svh - 34px) / 1.78));
   }
 
   .card {
-    padding-inline: clamp(17px, 5.2vw, 24px);
+    padding-inline: clamp(16px, 5vw, 22px);
+  }
+
+  .stationery-card {
+    padding-bottom: clamp(48px, 12vw, 62px);
+  }
+
+  .venue-photo img {
+    height: clamp(110px, 28svh, 150px);
   }
 }

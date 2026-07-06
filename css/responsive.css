@@ -102,15 +102,16 @@
     padding-bottom: clamp(54px, 13vw, 70px);
   }
 
+  /* Mobile text scale: readable on phones without changing the physical layout. */
   .card p:not(.eyebrow),
   .stationery-body p {
-    font-size: clamp(.86rem, 3.7vw, 1rem);
-    line-height: 1.52;
+    font-size: clamp(.94rem, 4vw, 1.08rem);
+    line-height: 1.5;
   }
 
   .stationery-hero {
-    font-size: clamp(1.55rem, 7vw, 2rem);
-    line-height: 1.06;
+    font-size: clamp(1.68rem, 7.4vw, 2.14rem);
+    line-height: 1.04;
   }
 
   .card .stationery-title,
@@ -151,28 +152,55 @@
   }
 
   .timeline-title {
-    font-size: clamp(.66rem, 2.5vw, .78rem) !important;
+    font-size: clamp(.72rem, 2.8vw, .86rem) !important;
+    line-height: 1.18;
   }
 
   .timeline-time {
-    font-size: clamp(.94rem, 3.7vw, 1.12rem) !important;
+    font-size: clamp(1rem, 4vw, 1.2rem) !important;
+  }
+
+  /* Card 5 has a photo, so its text needs a smaller but clearer scale. */
+  .venue-card .stationery-hero {
+    font-size: clamp(1.42rem, 6.2vw, 1.72rem);
+  }
+
+  .venue-location {
+    font-size: clamp(.68rem, 2.8vw, .8rem) !important;
+    line-height: 1.18;
+  }
+
+  .finding-title {
+    font-size: clamp(.68rem, 2.6vw, .78rem) !important;
+    margin-bottom: clamp(4px, 1vw, 6px);
   }
 
   .venue-card .finding-us p {
-    font-size: clamp(.68rem, 2.9vw, .82rem);
-    line-height: 1.28;
+    font-size: clamp(.78rem, 3.2vw, .9rem);
+    line-height: 1.3;
+    margin-block: 2px;
   }
 
   .map-button {
     position: relative;
     z-index: 60;
     pointer-events: auto;
-    padding: .56rem .9rem;
-    font-size: clamp(.66rem, 2.7vw, .78rem);
+    padding: .5rem .82rem;
+    font-size: clamp(.64rem, 2.6vw, .76rem);
+  }
+
+  .venue-photo {
+    margin-top: clamp(4px, 1.2vw, 7px);
   }
 
   .venue-photo img {
-    height: clamp(118px, 31svh, 170px);
+    height: clamp(104px, 28svh, 154px);
+    object-position: center 45%;
+  }
+
+  .thank-you-body p {
+    font-size: clamp(.98rem, 4.1vw, 1.12rem);
+    line-height: 1.46;
   }
 
   .countdown div {

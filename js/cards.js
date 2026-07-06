@@ -80,16 +80,8 @@ function initCards({
 
   nextButton.addEventListener('click', goNext);
   previousButton.addEventListener('click', goPrevious);
-
-  function handleZoneClick(event, direction) {
-    const interactiveTarget = event.target.closest('a, button, input, textarea, select');
-    if (interactiveTarget && !event.target.classList.contains('card-click-zone')) return;
-
-    direction === 'next' ? goNext() : goPrevious();
-  }
-
-  nextZone.addEventListener('click', (event) => handleZoneClick(event, 'next'));
-  previousZone.addEventListener('click', (event) => handleZoneClick(event, 'previous'));
+  nextZone.addEventListener('click', goNext);
+  previousZone.addEventListener('click', goPrevious);
 
   initGestureNavigation({ stage, goNext, goPrevious });
   updateCards();

@@ -1,24 +1,22 @@
 /* ================================
    Responsive refinements
-   Project Tulip v3.0 Mobile Foundation
+   Project Tulip v3.0 - mobile foundation
 ================================ */
 
 @media (max-width: 640px) {
   :root {
     /*
-      Mobile uses one invitation card as the centred physical object.
-      The desktop folder is two-card wide when open; mobile keeps the base/card
-      centred and allows the covers to open inside a clipped stage.
+      Mobile treats the visible card/base as the centred object.
+      The folder covers still exist physically, but they are allowed to move
+      outside the clipped phone viewport when the folder opens.
     */
-    --card-w: min(96vw, 410px, calc((100svh - 24px) / 1.78));
-    --card-h: calc(var(--card-w) * 1.78);
-    --cover-w: calc(var(--card-w) / 2);
-    --folder-open-w: var(--card-w);
+    --card-w: min(93vw, 390px, calc((100svh - 32px) / 1.78));
   }
 
   html,
   body {
     width: 100%;
+    max-width: 100%;
     height: 100%;
     min-height: 100svh;
     margin: 0;
@@ -54,43 +52,28 @@
     touch-action: pan-y;
   }
 
-  /* Mobile folder geometry: centre the actual card/base, not the desktop open width. */
+  /*
+    The mobile stage is one visible card wide. Because the base starts after
+    the left cover, we shift the physical folder left by half a card so the
+    base/card centre aligns with the phone centre.
+  */
   .folder-system {
     width: var(--card-w);
     height: var(--card-h);
-    transform: translateY(0) scale(1);
+    transform: translateX(calc(var(--cover-w) * -1)) translateY(0) scale(1);
   }
 
   .stage.is-open .folder-system {
-    transform: translateY(-2px) scale(1);
+    transform: translateX(calc(var(--cover-w) * -1)) translateY(-2px) scale(1);
   }
 
-  .base {
-    left: 0;
-    width: var(--card-w);
+  .stage.is-closing .folder-system,
+  .stage.is-open.is-closing .folder-system {
+    transform: translateX(calc(var(--cover-w) * -1)) translateY(0) scale(1);
   }
-
-  .left-cover {
-    left: 0;
-    width: var(--cover-w);
-    transform-origin: left center;
-  }
-
-  .right-cover {
-    right: 0;
-    width: var(--cover-w);
-    transform-origin: right center;
-  }
-
-  .left-cover .cover-print { left: 0; }
-  .right-cover .cover-print { right: 0; }
 
   .card-stack {
-    left: 0;
-    bottom: 0;
-    width: var(--card-w);
-    height: var(--card-h);
-    transform: translateY(6px) scale(.99);
+    transform: translateY(5px) scale(.99);
   }
 
   .stage.is-open .card-stack {
@@ -98,284 +81,59 @@
   }
 
   .card {
-    left: 8px;
-    top: 8px;
-    width: calc(100% - 16px);
-    height: calc(100% - 16px);
-    padding: clamp(20px, 5.8vw, 30px) clamp(17px, 5vw, 26px);
+    left: 9px;
+    top: 9px;
+    width: calc(100% - 18px);
+    height: calc(100% - 18px);
+    padding: clamp(24px, 6.8vw, 34px) clamp(20px, 5.8vw, 30px);
   }
 
   .stationery-card {
-    padding-top: clamp(25px, 7vw, 36px);
-    padding-bottom: clamp(48px, 11vw, 64px);
+    padding-top: clamp(30px, 8vw, 42px);
+    padding-bottom: clamp(48px, 12vw, 68px);
   }
-
-  .stationery-header {
-    margin-bottom: clamp(18px, 4.8vw, 28px);
-  }
-
-  .card .stationery-title,
-  .card.cover-card .eyebrow {
-    font-size: clamp(.64rem, 2.8vw, .82rem) !important;
-    letter-spacing: .22em;
-  }
-
-  .stationery-number {
-    font-size: clamp(1.08rem, 4.6vw, 1.34rem) !important;
-  }
-
-  .stationery-hero {
-    width: min(100%, 15ch);
-    margin-bottom: clamp(18px, 4.8vw, 28px);
-    font-size: clamp(1.65rem, 7.6vw, 2.3rem) !important;
-    line-height: 1.04;
-  }
-
-  .card p:not(.eyebrow),
-  .stationery-body p {
-    font-size: clamp(.88rem, 4vw, 1.08rem) !important;
-    line-height: 1.5 !important;
-  }
-
-  .stationery-emphasis {
-    font-size: clamp(1.22rem, 5.6vw, 1.55rem) !important;
-    line-height: 1.08 !important;
-  }
-
-  .invitation-emphasis {
-    margin-top: clamp(18px, 4.8vw, 26px) !important;
-    margin-bottom: clamp(18px, 4.8vw, 26px) !important;
-  }
-
-  .stationery-divider {
-    margin-top: clamp(18px, 4.6vw, 28px);
-    margin-bottom: clamp(36px, 8.4vw, 52px);
-  }
-
-  .cover-title { top: 22%; }
 
   .cover-title span {
-    font-size: clamp(1.55rem, 7.4vw, 2.35rem) !important;
-    letter-spacing: .16em;
+    font-size: clamp(1.65rem, 7.4vw, 2.35rem);
+    letter-spacing: .17em;
   }
 
   .seal-print,
   .seal-trigger {
-    width: clamp(88px, 25vw, 110px);
-    height: clamp(88px, 25vw, 110px);
+    width: clamp(92px, 25vw, 108px);
+    height: clamp(92px, 25vw, 108px);
   }
-
-  /* Card 1 */
-  .card.cover-card {
-    gap: clamp(7px, 2vw, 12px);
-    padding-block: clamp(28px, 7vw, 40px);
-  }
-
-  .bride-name {
-    font-size: clamp(3.35rem, 15.5vw, 4.7rem) !important;
-    line-height: .78;
-  }
-
-  .rings-mark {
-    width: clamp(28px, 8.4vw, 40px);
-    margin-top: clamp(12px, 3.2vw, 20px);
-    margin-bottom: clamp(9px, 2.7vw, 16px);
-  }
-
-  .date-lockup {
-    margin-top: clamp(18px, 4.8vw, 30px);
-  }
-
-  .date-number {
-    font-size: clamp(2.25rem, 10vw, 3.15rem) !important;
-  }
-
-  .date-side {
-    font-size: clamp(.52rem, 2.2vw, .68rem) !important;
-  }
-
-  .date-year {
-    font-size: clamp(.88rem, 3.3vw, 1.14rem) !important;
-  }
-
-  /* Card 3: details */
-  .details-card {
-    --stationery-after-hero: clamp(10px, 2.8vw, 16px);
-  }
-
-  .details-body {
-    gap: clamp(7px, 2vw, 12px);
-  }
-
-  .details-body .ceremony-time {
-    font-size: clamp(4.4rem, 19vw, 6.1rem) !important;
-    line-height: .74 !important;
-  }
-
-  .detail-day {
-    font-size: clamp(1.45rem, 6.2vw, 2rem) !important;
-  }
-
-  .detail-date,
-  .detail-location {
-    font-size: clamp(.66rem, 2.5vw, .82rem) !important;
-  }
-
-  .detail-venue {
-    font-size: clamp(.92rem, 3.6vw, 1.16rem) !important;
-  }
-
-  /* Card 4: timeline */
-  .timeline-card {
-    --stationery-after-hero: clamp(22px, 5vw, 32px);
-    --stationery-divider-top: clamp(16px, 4vw, 24px);
-  }
-
-  .timeline-body {
-    width: min(100%, 30ch);
-    gap: clamp(10px, 3.2vw, 16px);
-  }
-
-  .timeline-item {
-    grid-template-columns: clamp(4.7rem, 18vw, 5.6rem) clamp(13px, 3.4vw, 18px) 1fr;
-    min-height: clamp(26px, 7.2vw, 34px);
-  }
-
-  .timeline-time {
-    font-size: clamp(.96rem, 4vw, 1.22rem) !important;
-  }
-
-  .timeline-title {
-    font-size: clamp(.64rem, 2.6vw, .8rem) !important;
-  }
-
-  /* Card 5: venue */
-  .venue-card {
-    --stationery-after-header: clamp(7px, 1.8vw, 11px);
-    --stationery-after-hero: clamp(5px, 1.4vw, 8px);
-    --stationery-divider-top: clamp(6px, 1.6vw, 10px);
-    --stationery-divider-bottom: clamp(12px, 3vw, 18px);
-  }
-
-  .venue-card .stationery-hero {
-    font-size: clamp(1.42rem, 6.6vw, 1.9rem) !important;
-    margin-bottom: clamp(5px, 1.4vw, 9px);
-  }
-
-  .venue-location {
-    font-size: clamp(.62rem, 2.3vw, .76rem) !important;
-  }
-
-  .map-button {
-    position: relative;
-    z-index: 80;
-    min-height: 34px;
-    margin-top: 7px;
-    margin-bottom: clamp(8px, 2.2vw, 12px);
-    padding: 8px 15px;
-    font-size: clamp(.6rem, 2.3vw, .74rem) !important;
-    pointer-events: auto;
-    touch-action: manipulation;
-  }
-
-  .finding-title {
-    font-size: clamp(.72rem, 2.8vw, .88rem) !important;
-  }
-
-  .venue-card .finding-us p {
-    font-size: clamp(.76rem, 3vw, .9rem) !important;
-    line-height: 1.28 !important;
-    margin: 3px 0;
-  }
-
-  .venue-photo {
-    margin-top: 5px;
-  }
-
-  .venue-photo img {
-    height: clamp(108px, 24svh, 152px);
-    object-position: center 62%;
-  }
-
-  /* Card 6: thank you */
-  .thank-you-card {
-    --stationery-after-header: clamp(14px, 3.6vw, 20px);
-    --stationery-after-hero: clamp(12px, 3vw, 18px);
-    --stationery-divider-bottom: clamp(24px, 6vw, 36px);
-  }
-
-  .thank-you-hero {
-    font-size: clamp(1.22rem, 5.4vw, 1.65rem) !important;
-  }
-
-  .countdown {
-    margin-top: clamp(8px, 2.2vw, 12px);
-  }
-
-  .countdown div {
-    inline-size: clamp(82px, 23vw, 100px);
-    block-size: clamp(82px, 23vw, 100px);
-  }
-
-  .countdown strong {
-    font-size: clamp(1.5rem, 6vw, 1.9rem) !important;
-  }
-
-  .countdown span {
-    font-size: clamp(.45rem, 1.7vw, .56rem) !important;
-  }
-
-  /* Mobile links must remain tappable. Swipe handles card navigation instead. */
-  .card-click-zone {
-    display: none;
-  }
-
-  #prevCard { left: 5px; }
-  #nextCard { right: 5px; }
 
   #prevCard,
   #nextCard {
-    width: 40px;
-    height: 70px;
-    font-size: 1.9rem;
+    width: 42px;
+    height: 68px;
+    font-size: 2rem;
   }
 
-  #indicator { bottom: 8px; }
+  #prevCard { left: 4px; }
+  #nextCard { right: 4px; }
+
+  /*
+    Desktop tap zones cover the card. On mobile they block real links like
+    Google Maps, so mobile navigation uses swipe + visible arrow buttons only.
+  */
+  .card-click-zone {
+    display: none;
+    pointer-events: none;
+  }
+
+  #indicator {
+    bottom: 8px;
+  }
 }
 
 @media (max-width: 380px) {
   :root {
-    --card-w: min(95vw, calc((100svh - 18px) / 1.78));
+    --card-w: min(94vw, calc((100svh - 24px) / 1.78));
   }
 
   .card {
-    padding-inline: clamp(15px, 4.5vw, 21px);
-  }
-
-  .stationery-card {
-    padding-top: clamp(22px, 6.2vw, 30px);
-    padding-bottom: clamp(42px, 10vw, 56px);
-  }
-
-  .stationery-hero {
-    font-size: clamp(1.48rem, 7vw, 1.9rem) !important;
-  }
-
-  .card p:not(.eyebrow),
-  .stationery-body p {
-    font-size: clamp(.82rem, 3.8vw, .98rem) !important;
-  }
-
-  .details-body .ceremony-time {
-    font-size: clamp(4rem, 18vw, 5.4rem) !important;
-  }
-
-  .venue-photo img {
-    height: clamp(94px, 22svh, 132px);
-  }
-
-  .countdown div {
-    inline-size: clamp(76px, 22vw, 92px);
-    block-size: clamp(76px, 22vw, 92px);
+    padding-inline: clamp(17px, 5.2vw, 24px);
   }
 }

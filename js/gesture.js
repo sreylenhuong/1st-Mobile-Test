@@ -6,10 +6,12 @@ function initGestureNavigation({ stage, goNext, goPrevious }) {
   let startX = 0;
 
   stage.addEventListener('touchstart', (event) => {
+    if (event.target.closest('a, button, input, textarea, select')) return;
     startX = event.touches[0].clientX;
   }, { passive: true });
 
   stage.addEventListener('touchend', (event) => {
+    if (event.target.closest('a, button, input, textarea, select')) return;
     if (!stage.classList.contains('is-open')) return;
 
     const endX = event.changedTouches[0].clientX;

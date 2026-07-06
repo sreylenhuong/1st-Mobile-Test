@@ -110,7 +110,7 @@
   }
 
   .stationery-hero {
-    font-size: clamp(1.9rem, calc(var(--card-w) * 0.089), 2.35rem);
+    font-size: clamp(2.9rem, calc(var(--card-w) * 0.189), 3.35rem);
     line-height: 1.02;
   }
 
@@ -120,19 +120,19 @@
   }
 
   .bride-name {
-    font-size: clamp(3.3rem, calc(var(--card-w) * 0.165), 4.6rem);
+    font-size: clamp(4rem, calc(var(--card-w) * 0.25), 5.6rem);
   }
 
   .rings-mark {
-    width: clamp(31px, calc(var(--card-w) * 0.094), 40px);
+    width: clamp(41px, calc(var(--card-w) * 0.14), 50px);
   }
 
   .date-number {
-    font-size: clamp(2.3rem, calc(var(--card-w) * 0.108), 3rem);
+    font-size: clamp(3rem, calc(var(--card-w) * 0.28), 4rem);
   }
 
   .cover-title {
-    top: 29%;
+    top: 19%;
   }
 
   .cover-title span {

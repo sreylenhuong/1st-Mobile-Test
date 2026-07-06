@@ -70,9 +70,9 @@ h2,
 .card.cover-card .eyebrow {
   margin: 0 10px clamp(6px, calc(var(--card-w) * 0.0207), 12px);
   font-family: var(--font-serif);
-  font-size: clamp(.62rem, calc(var(--card-w) * 0.0213), .66rem);
+  font-size: clamp(2rem, calc(var(--card-w) * 0.0513), 2.5rem);
   font-weight: 600;
-  letter-spacing: .32em;
+  letter-spacing: .22em;
   text-transform: uppercase;
   color: rgba(184, 137, 115, .92);
   text-shadow: 0 1px 0 rgba(255,255,255,.72);
@@ -81,7 +81,7 @@ h2,
 
 .name-lockup {
   width: 100%;
-  margin-top: clamp(28px, calc(var(--card-w) * 0.0573), 32px);
+  margin-top: clamp(40px, calc(var(--card-w) * 0.0573), 32px);
   display: grid;
   justify-items: center;
   align-items: center;
@@ -93,8 +93,8 @@ h2,
   display: block;
   width: 100%;
   font-family: var(--font-script);
-  font-size: clamp(3.45rem, calc(var(--card-w) * 0.185), 5.1rem);
-  font-weight: 400;
+  font-size: clamp(4.55rem, calc(var(--card-w) * 0.185), 5.1rem);
+  font-weight: 550;
   line-height: .78;
   color: rgba(69, 53, 47, .98);
   text-wrap: balance;
@@ -107,7 +107,7 @@ h2,
   object-fit: contain;
   opacity: .76;
   margin-top: clamp(12px, calc(var(--card-w) * 0.0402), 22px);
-  margin-bottom: clamp(8px, calc(var(--card-w) * 0.0293), 15px);
+  margin-bottom: clamp(20px, calc(var(--card-w) * 0.0293), 15px);
   filter:
     sepia(.18)
     saturate(.72)
@@ -117,7 +117,7 @@ h2,
 
 .date-lockup {
   width: min(100%, 294px);
-  margin-top: clamp(28px, calc(var(--card-w) * 0.0573), 32px);
+  margin-top: clamp(45px, calc(var(--card-w) * 0.0573), 32px);
   font-family: var(--font-serif);
   color: var(--muted);
   transform: translateY(clamp(2px, calc(var(--card-w) * 0.0110), 7px));
@@ -138,9 +138,9 @@ h2,
   justify-items: center;
   text-align: center;
   gap: clamp(4px, calc(var(--card-w) * 0.0171), 7px);
-  font-size: clamp(0.78rem, calc(var(--card-w) * 0.023), .72rem);
+  font-size: clamp(0.95rem, calc(var(--card-w) * 0.023), .72rem);
   font-weight: 600;
-  letter-spacing: .18em;
+  letter-spacing: .15em;
   text-transform: uppercase;
   color: rgba(122, 89, 72, .72);
 }
@@ -158,8 +158,8 @@ h2,
   min-width: clamp(38px, calc(var(--card-w) * 0.1220), 58px);
   padding-inline: clamp(4px, calc(var(--card-w) * 0.0146), 7px);
   border-inline: 1px solid rgba(170, 116, 93, .34);
-  font-size: clamp(2.45rem, calc(var(--card-w) * 0.125), 3.6rem);
-  font-weight: 400;
+  font-size: clamp(2.65rem, calc(var(--card-w) * 0.125), 3.6rem);
+  font-weight: 500;
   line-height: .86;
   letter-spacing: .02em;
   color: rgba(170, 116, 93, .88);
@@ -169,10 +169,10 @@ h2,
 .date-year {
   display: block;
   margin-top: clamp(10px, calc(var(--card-w) * 0.0305), 16px);
-  font-size: clamp(.95rem, calc(var(--card-w) * 0.041), 1.28rem);
+  font-size: clamp(1.15rem, calc(var(--card-w) * 0.041), 1.28rem);
   font-weight: 500;
   line-height: 1;
-  letter-spacing: .24em;
+  letter-spacing: .2em;
   color: rgba(170, 116, 93, .86);
   text-shadow: 0 1px 0 rgba(255,255,255,.72);
 }

@@ -328,11 +328,48 @@
     font-size: 0.68rem !important;
   }
 }
-/* TEST: if this works, the card border will turn red on mobile */
+/* ================================
+   Mobile text sizing - safe version
+================================ */
 @media (max-width: 768px) {
-  .card,
-  .invitation-card,
-  .stationery-card {
-    outline: 2px solid red !important;
+
+  /* Main card headings */
+  .card h1,
+  .card h2,
+  .card h3,
+  .hero-title,
+  .stationery-title {
+    font-size: 24px !important;
+    line-height: 1.1 !important;
+  }
+
+  /* Normal readable body text */
+  .card p,
+  .card li,
+  .card span,
+  .stationery-body,
+  .detail-text {
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+  }
+
+  /* Names on card 1 */
+  .couple-name {
+    font-size: 34px !important;
+    line-height: 1 !important;
+  }
+
+  /* Timeline text */
+  .timeline-time,
+  .timeline-title,
+  .timeline-text {
+    font-size: 13px !important;
+    line-height: 1.3 !important;
+  }
+
+  /* Small labels */
+  .detail-label,
+  .countdown-label {
+    font-size: 11px !important;
   }
 }

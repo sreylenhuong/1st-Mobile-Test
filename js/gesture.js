@@ -4,30 +4,21 @@
 */
 function initGestureNavigation({ stage, goNext, goPrevious }) {
   let startX = 0;
-  let startY = 0;
-  let startedOnInteractive = false;
-
-  function isInteractiveElement(element) {
-    return Boolean(element.closest('a, button, input, textarea, select, [data-no-swipe]'));
-  }
 
   stage.addEventListener('touchstart', (event) => {
-    const touch = event.touches[0];
-    startX = touch.clientX;
-    startY = touch.clientY;
-    startedOnInteractive = isInteractiveElement(event.target);
+    if (event.target.closest('a, button, input, textarea, select')) return;
+    startX = event.touches[0].clientX;
   }, { passive: true });
 
   stage.addEventListener('touchend', (event) => {
-    if (!stage.classList.contains('is-open') || startedOnInteractive) return;
+    if (event.target.closest('a, button, input, textarea, select')) return;
+    if (!stage.classList.contains('is-open')) return;
 
-    const touch = event.changedTouches[0];
-    const distanceX = touch.clientX - startX;
-    const distanceY = touch.clientY - startY;
+    const endX = event.changedTouches[0].clientX;
+    const distance = endX - startX;
 
-    if (Math.abs(distanceX) < 48) return;
-    if (Math.abs(distanceY) > Math.abs(distanceX) * .8) return;
+    if (Math.abs(distance) < 48) return;
 
-    distanceX < 0 ? goNext() : goPrevious();
+    distance < 0 ? goNext() : goPrevious();
   }, { passive: true });
 }

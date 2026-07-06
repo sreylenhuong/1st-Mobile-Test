@@ -328,3 +328,11 @@
     font-size: 0.68rem !important;
   }
 }
+/* TEST: if this works, the card border will turn red on mobile */
+@media (max-width: 768px) {
+  .card,
+  .invitation-card,
+  .stationery-card {
+    outline: 2px solid red !important;
+  }
+}

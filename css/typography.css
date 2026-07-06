@@ -25,10 +25,10 @@ h2,
 
 .cover-title span {
   display: block;
-  font-size: clamp(1.08rem, calc(var(--card-w) * 0.0561), 1.72rem);
+  font-size: clamp(2.35rem, calc(var(--card-w) * 0.122), 3.25rem);
   font-weight: 600;
-  line-height: 1;
-  letter-spacing: .24em;
+  line-height: .9;
+  letter-spacing: .02em;
   text-transform: uppercase;
   color: rgba(112, 82, 72, .34);
   text-shadow:
@@ -92,7 +92,7 @@ h2,
   display: block;
   width: 100%;
   font-family: var(--font-script);
-  font-size: clamp(2.5rem, calc(var(--card-w) * 0.1244), 4.65rem);
+  font-size: clamp(3.45rem, calc(var(--card-w) * 0.185), 5.1rem);
   font-weight: 400;
   line-height: .78;
   color: rgba(69, 53, 47, .98);
@@ -101,7 +101,7 @@ h2,
 }
 
 .rings-mark {
-  width: clamp(23px, calc(var(--card-w) * 0.0793), 37px);
+  width: clamp(34px, calc(var(--card-w) * 0.105), 46px);
   height: auto;
   object-fit: contain;
   opacity: .76;
@@ -137,7 +137,7 @@ h2,
   justify-items: center;
   text-align: center;
   gap: clamp(4px, calc(var(--card-w) * 0.0171), 7px);
-  font-size: clamp(.49rem, calc(var(--card-w) * 0.0189), .62rem);
+  font-size: clamp(.58rem, calc(var(--card-w) * 0.023), .72rem);
   font-weight: 600;
   letter-spacing: .18em;
   text-transform: uppercase;
@@ -157,7 +157,7 @@ h2,
   min-width: clamp(38px, calc(var(--card-w) * 0.1220), 58px);
   padding-inline: clamp(4px, calc(var(--card-w) * 0.0146), 7px);
   border-inline: 1px solid rgba(170, 116, 93, .34);
-  font-size: clamp(1.78rem, calc(var(--card-w) * 0.0841), 3rem);
+  font-size: clamp(2.45rem, calc(var(--card-w) * 0.125), 3.6rem);
   font-weight: 400;
   line-height: .86;
   letter-spacing: .02em;
@@ -168,7 +168,7 @@ h2,
 .date-year {
   display: block;
   margin-top: clamp(10px, calc(var(--card-w) * 0.0305), 16px);
-  font-size: clamp(.84rem, calc(var(--card-w) * 0.0354), 1.16rem);
+  font-size: clamp(.95rem, calc(var(--card-w) * 0.041), 1.28rem);
   font-weight: 500;
   line-height: 1;
   letter-spacing: .24em;
@@ -177,6 +177,62 @@ h2,
 }
 
 
+
+
+/* Shared readable scale for Cards 2–6.
+   These live in the base typography file so desktop and mobile inherit the same sizes.
+   responsive.css should only override them when a specific mobile layout needs protection. */
+.card p:not(.eyebrow),
+.stationery-body p {
+  font-size: clamp(1.08rem, calc(var(--card-w) * 0.049), 1.22rem);
+  line-height: 1.55;
+}
+
+.stationery-hero {
+  font-size: clamp(2.15rem, calc(var(--card-w) * 0.112), 3.35rem);
+  line-height: 1.04;
+}
+
+.card .stationery-title,
+.card.cover-card .eyebrow {
+  font-size: clamp(.72rem, calc(var(--card-w) * 0.031), .88rem);
+}
+
+.details-body .ceremony-time {
+  font-size: clamp(4.6rem, calc(var(--card-w) * 0.2065), 5.9rem) !important;
+}
+
+.timeline-title {
+  font-size: clamp(.88rem, calc(var(--card-w) * 0.038), 1rem) !important;
+  line-height: 1.2;
+}
+
+.timeline-time {
+  font-size: clamp(1.24rem, calc(var(--card-w) * 0.052), 1.4rem) !important;
+}
+
+.venue-card .stationery-hero {
+  font-size: clamp(1.75rem, calc(var(--card-w) * 0.082), 2.08rem);
+}
+
+.venue-location {
+  font-size: clamp(.86rem, calc(var(--card-w) * 0.037), 1rem) !important;
+  line-height: 1.2;
+}
+
+.finding-title {
+  font-size: clamp(.82rem, calc(var(--card-w) * 0.034), .94rem) !important;
+}
+
+.venue-card .finding-us p {
+  font-size: clamp(.98rem, calc(var(--card-w) * 0.043), 1.08rem);
+  line-height: 1.34;
+}
+
+.thank-you-body p {
+  font-size: clamp(1.15rem, calc(var(--card-w) * 0.052), 1.28rem);
+  line-height: 1.5;
+}
 
 /* Shared stationery card typography: Cards 2–6
    Detailed overrides live in cards.css beside the reusable card layout. */

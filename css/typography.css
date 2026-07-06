@@ -190,31 +190,29 @@ h2,
 }
 
 .stationery-hero {
-  font-size: clamp(2.15rem, calc(var(--card-w) * 0.112), 3.35rem);
+  font-size: clamp(1.5rem, calc(var(--card-w) * 0.112), 3.35rem);
   line-height: 1.04;
 }
 
 .card .stationery-title,
 .card.cover-card .eyebrow {
-  font-size: clamp(.72rem, calc(var(--card-w) * 0.031), .88rem);
+  font-size: clamp(.82rem, calc(var(--card-w) * 0.031), .88rem);
 }
 
 .details-body .ceremony-time {
-  font-size: clamp(4.6rem, calc(var(--card-w) * 0.2065), 5.9rem) !important;
+  font-size: clamp(7rem, calc(var(--card-w) * 1.3), 8rem) !important;
 }
 
 .timeline-title {
   font-size: clamp(.88rem, calc(var(--card-w) * 0.038), 1rem) !important;
-  line-height: 1.2;
+  line-height: 2;
 }
 
 .timeline-time {
   font-size: clamp(1.24rem, calc(var(--card-w) * 0.052), 1.4rem) !important;
 }
 
-.venue-card .stationery-hero {
-  font-size: clamp(1.75rem, calc(var(--card-w) * 0.082), 2.08rem);
-}
+
 
 .venue-location {
   font-size: clamp(.86rem, calc(var(--card-w) * 0.037), 1rem) !important;
@@ -226,7 +224,7 @@ h2,
 }
 
 .venue-card .finding-us p {
-  font-size: clamp(.98rem, calc(var(--card-w) * 0.043), 1.08rem);
+  font-size: clamp(.75rem, calc(var(--card-w) * 0.027), 1.5rem);
   line-height: 1.34;
 }
 

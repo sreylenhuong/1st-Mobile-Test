@@ -1,24 +1,22 @@
 /* ================================
    Responsive refinements
-   Project Tulip v3.0 - mobile foundation
+   Project Tulip v3.0.2
+   Mobile foundation: one-card viewport, readable text, safe links
 ================================ */
 
 @media (max-width: 640px) {
   :root {
-    /*
-      Mobile treats the visible card/base as the centred object.
-      The folder covers still exist physically, but they are allowed to move
-      outside the clipped phone viewport when the folder opens.
-    */
-    --card-w: min(93vw, 390px, calc((100svh - 32px) / 1.78));
+    /* Make the card the main mobile object. */
+    --card-w: min(94vw, 410px, calc((100svh - 26px) / 1.78));
+    --card-h: calc(var(--card-w) * 1.78);
+    --cover-w: calc(var(--card-w) / 2);
+    --folder-open-w: var(--card-w);
   }
 
   html,
   body {
     width: 100%;
-    max-width: 100%;
     height: 100%;
-    min-height: 100svh;
     margin: 0;
     padding: 0;
     overflow: hidden;
@@ -42,38 +40,47 @@
 
   .stage {
     width: 100vw;
-    max-width: 100vw;
     height: 100svh;
+    max-width: 100vw;
     max-height: 100svh;
     overflow: hidden;
     display: grid;
     place-items: center;
     perspective: 1400px;
-    touch-action: pan-y;
   }
 
-  /*
-    The mobile stage is one visible card wide. Because the base starts after
-    the left cover, we shift the physical folder left by half a card so the
-    base/card centre aligns with the phone centre.
-  */
+  /* On mobile the folder's layout box is one card wide.
+     The covers still open physically, but off-screen overflow is clipped by .stage. */
   .folder-system {
     width: var(--card-w);
     height: var(--card-h);
-    transform: translateX(calc(var(--cover-w) * -1)) translateY(0) scale(1);
+    transform: translateY(0) scale(1);
   }
 
   .stage.is-open .folder-system {
-    transform: translateX(calc(var(--cover-w) * -1)) translateY(-2px) scale(1);
+    transform: translateY(-2px) scale(1);
   }
 
-  .stage.is-closing .folder-system,
-  .stage.is-open.is-closing .folder-system {
-    transform: translateX(calc(var(--cover-w) * -1)) translateY(0) scale(1);
+  .base {
+    left: 0;
+    width: var(--card-w);
+    height: var(--card-h);
+  }
+
+  .left-cover {
+    left: 0;
+    width: var(--cover-w);
+  }
+
+  .right-cover {
+    right: 0;
+    width: var(--cover-w);
   }
 
   .card-stack {
-    transform: translateY(5px) scale(.99);
+    width: var(--card-w);
+    height: var(--card-h);
+    transform: translateY(5px) scale(.992);
   }
 
   .stage.is-open .card-stack {
@@ -85,17 +92,71 @@
     top: 9px;
     width: calc(100% - 18px);
     height: calc(100% - 18px);
-    padding: clamp(24px, 6.8vw, 34px) clamp(20px, 5.8vw, 30px);
+    padding: 26px 22px 34px;
   }
 
   .stationery-card {
-    padding-top: clamp(30px, 8vw, 42px);
-    padding-bottom: clamp(48px, 12vw, 68px);
+    padding-top: 30px;
+    padding-bottom: 54px;
+  }
+
+  /* Mobile typography: uses !important because card-specific desktop rules also use !important. */
+  .card .stationery-title,
+  .card.cover-card .eyebrow {
+    font-size: clamp(.72rem, 3vw, .86rem) !important;
+    letter-spacing: .2em !important;
+  }
+
+  .stationery-number {
+    font-size: clamp(1.15rem, 4.6vw, 1.36rem) !important;
+  }
+
+  .stationery-hero,
+  .venue-card .stationery-hero,
+  .thank-you-hero {
+    font-size: clamp(1.78rem, 8.4vw, 2.38rem) !important;
+    line-height: 1.04 !important;
+    margin-bottom: clamp(20px, 5.4vw, 30px) !important;
+  }
+
+  .card p:not(.eyebrow),
+  .stationery-body p,
+  .invitation-body p,
+  .thank-you-body p,
+  .venue-card .finding-us p {
+    font-size: clamp(.98rem, 4.15vw, 1.13rem) !important;
+    line-height: 1.48 !important;
+  }
+
+  .stationery-emphasis,
+  .invitation-emphasis {
+    font-size: clamp(1.35rem, 5.8vw, 1.68rem) !important;
+    line-height: 1.08 !important;
+  }
+
+  .bride-name {
+    font-size: clamp(3.55rem, 16vw, 4.75rem) !important;
+  }
+
+  .rings-mark {
+    width: clamp(32px, 9vw, 42px) !important;
+  }
+
+  .date-number {
+    font-size: clamp(2.35rem, 10.4vw, 3.08rem) !important;
+  }
+
+  .date-side {
+    font-size: clamp(.58rem, 2.35vw, .72rem) !important;
+  }
+
+  .date-year {
+    font-size: clamp(.98rem, 4vw, 1.22rem) !important;
   }
 
   .cover-title span {
-    font-size: clamp(1.65rem, 7.4vw, 2.35rem);
-    letter-spacing: .17em;
+    font-size: clamp(1.72rem, 7.4vw, 2.42rem) !important;
+    letter-spacing: .16em !important;
   }
 
   .seal-print,
@@ -104,24 +165,83 @@
     height: clamp(92px, 25vw, 108px);
   }
 
+  .details-body .ceremony-time {
+    font-size: clamp(4.55rem, 19vw, 6rem) !important;
+  }
+
+  .detail-day {
+    font-size: clamp(1.58rem, 6.8vw, 2.12rem) !important;
+  }
+
+  .detail-date,
+  .detail-venue {
+    font-size: clamp(.9rem, 3.65vw, 1.08rem) !important;
+  }
+
+  .detail-location {
+    font-size: clamp(.7rem, 2.75vw, .84rem) !important;
+  }
+
+  .timeline-body {
+    width: min(100%, 31ch);
+    gap: clamp(12px, 3.4vw, 16px);
+  }
+
+  .timeline-title {
+    font-size: clamp(.72rem, 2.85vw, .86rem) !important;
+  }
+
+  .timeline-time {
+    font-size: clamp(1rem, 4vw, 1.22rem) !important;
+  }
+
+  .map-button {
+    min-height: 34px !important;
+    padding: 8px 16px !important;
+    font-size: clamp(.68rem, 2.75vw, .82rem) !important;
+    position: relative;
+    z-index: 80;
+    pointer-events: auto;
+  }
+
+  .venue-location {
+    font-size: clamp(.72rem, 2.85vw, .84rem) !important;
+  }
+
+  .venue-photo img {
+    height: clamp(132px, 30svh, 178px) !important;
+  }
+
+  .countdown div {
+    inline-size: clamp(90px, 25vw, 108px) !important;
+    block-size: clamp(90px, 25vw, 108px) !important;
+  }
+
+  .countdown strong {
+    font-size: clamp(1.72rem, 6.6vw, 2.05rem) !important;
+  }
+
+  .countdown span {
+    font-size: clamp(.52rem, 2.05vw, .64rem) !important;
+  }
+
+  /* Do not place invisible half-screen click zones over links/buttons on mobile. */
+  .card-click-zone {
+    display: none !important;
+    pointer-events: none !important;
+  }
+
   #prevCard,
   #nextCard {
     width: 42px;
-    height: 68px;
+    height: 70px;
     font-size: 2rem;
+    opacity: .18;
+    pointer-events: auto;
   }
 
-  #prevCard { left: 4px; }
-  #nextCard { right: 4px; }
-
-  /*
-    Desktop tap zones cover the card. On mobile they block real links like
-    Google Maps, so mobile navigation uses swipe + visible arrow buttons only.
-  */
-  .card-click-zone {
-    display: none;
-    pointer-events: none;
-  }
+  #prevCard { left: 2px; }
+  #nextCard { right: 2px; }
 
   #indicator {
     bottom: 8px;
@@ -130,10 +250,34 @@
 
 @media (max-width: 380px) {
   :root {
-    --card-w: min(94vw, calc((100svh - 24px) / 1.78));
+    --card-w: min(95vw, calc((100svh - 20px) / 1.78));
   }
 
   .card {
-    padding-inline: clamp(17px, 5.2vw, 24px);
+    padding: 22px 18px 30px;
+  }
+
+  .stationery-card {
+    padding-top: 26px;
+    padding-bottom: 48px;
+  }
+
+  .stationery-hero,
+  .venue-card .stationery-hero,
+  .thank-you-hero {
+    font-size: clamp(1.55rem, 7.8vw, 2rem) !important;
+  }
+
+  .card p:not(.eyebrow),
+  .stationery-body p,
+  .invitation-body p,
+  .thank-you-body p,
+  .venue-card .finding-us p {
+    font-size: clamp(.88rem, 3.9vw, 1rem) !important;
+    line-height: 1.42 !important;
+  }
+
+  .venue-photo img {
+    height: clamp(112px, 27svh, 146px) !important;
   }
 }

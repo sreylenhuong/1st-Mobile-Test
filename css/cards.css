@@ -5,7 +5,7 @@
 
 .card-stack {
   position: absolute;
-  left: 0;
+  left: var(--cover-w);
   bottom: 0;
   width: var(--card-w);
   height: var(--card-h);
@@ -633,10 +633,10 @@
 }
 
 .finding-title {
-  margin: 2 2 clamp(3px, .8vw, 5px);
+  margin: 2px 0 clamp(3px, .8vw, 5px);
   font-family: var(--font-ui);
-  font-size: clamp(.78rem, 1.35vw, .66rem);
-  font-weight: 2000;
+  font-size: clamp(.58rem, 1.35vw, .66rem);
+  font-weight: 700;
   line-height: 1;
   letter-spacing: .105em;
   text-transform: uppercase;
@@ -646,8 +646,8 @@
 .venue-card .finding-us p {
   margin: 3px 0;
   max-width: none;
-  font-size: clamp(.76rem, 1.4vw, .64rem);
-  line-height: 1.3;
+  font-size: clamp(.62rem, 1.45vw, .72rem);
+  line-height: 1.28;
   letter-spacing: .01em;
   color: rgba(88, 62, 55, .78);
 }

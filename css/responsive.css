@@ -1,16 +1,15 @@
 /* ================================
    Responsive refinements
-   Mobile-first polish v2.7
+   Mobile-first polish v2.8
 ================================ */
 
 @media (max-width: 640px) {
   :root {
     /*
-      Mobile uses the card as the hero object.
-      The opened folder can extend outside the viewport, but the visible card
-      remains large, centred, and readable.
+      Mobile centres the CLOSED folder/card footprint, not the opened width.
+      The base, cards, seal, and cover print all share this same anchor.
     */
-    --card-w: min(94vw, 390px, calc((100svh - 34px) / 1.78));
+    --card-w: min(92vw, 390px, calc((100svh - 36px) / 1.78));
   }
 
   html,
@@ -51,8 +50,9 @@
   }
 
   /*
-    Mobile centres the physical card/base footprint, not the full open-folder width.
-    The covers still fold outward, but the invitation card remains visually centred.
+    Critical mobile model:
+    the folder-system is one card wide, so its centre is the real physical centre.
+    Covers still fold out from the base, but they no longer change the layout centre.
   */
   .folder-system {
     width: var(--card-w);
@@ -66,19 +66,21 @@
 
   .base {
     left: 0;
-    width: var(--card-w);
   }
 
   .left-cover {
     left: 0;
+    transform-origin: left center;
   }
 
   .right-cover {
     right: 0;
+    transform-origin: right center;
   }
 
   .card-stack {
     left: 0;
+    right: auto;
     bottom: 0;
     transform: translateY(6px) scale(.99);
   }
@@ -102,13 +104,13 @@
 
   .card p:not(.eyebrow),
   .stationery-body p {
-    font-size: clamp(.92rem, 3.95vw, 1.04rem);
-    line-height: 1.48;
+    font-size: clamp(.86rem, 3.7vw, 1rem);
+    line-height: 1.52;
   }
 
   .stationery-hero {
-    font-size: clamp(1.72rem, 7.5vw, 2.12rem);
-    line-height: 1.04;
+    font-size: clamp(1.55rem, 7vw, 2rem);
+    line-height: 1.06;
   }
 
   .card .stationery-title,
@@ -129,7 +131,7 @@
   }
 
   .cover-title span {
-    font-size: clamp(1.6rem, 7.2vw, 2.35rem);
+    font-size: clamp(1.15rem, 5.2vw, 1.9rem);
     letter-spacing: .18em;
   }
 
@@ -157,12 +159,20 @@
   }
 
   .venue-card .finding-us p {
-    font-size: clamp(.74rem, 3.15vw, .86rem);
-    line-height: 1.26;
+    font-size: clamp(.68rem, 2.9vw, .82rem);
+    line-height: 1.28;
+  }
+
+  .map-button {
+    position: relative;
+    z-index: 60;
+    pointer-events: auto;
+    padding: .56rem .9rem;
+    font-size: clamp(.66rem, 2.7vw, .78rem);
   }
 
   .venue-photo img {
-    height: clamp(104px, 25svh, 150px);
+    height: clamp(118px, 31svh, 170px);
   }
 
   .countdown div {
@@ -180,31 +190,43 @@
     font-size: 2rem;
   }
 
+  /* Keep mobile tap navigation on the paper edges only so links remain tappable. */
   .card-click-zone {
-    width: 50vw;
-    height: 100svh;
+    width: min(24vw, 96px);
+    height: var(--card-h);
+    top: 50%;
+    transform: translateY(-50%);
   }
 
-  .prev-zone { left: 0; }
-  .next-zone { right: 0; }
+  .prev-zone { left: calc(50% - (var(--card-w) / 2)); }
+  .next-zone { right: calc(50% - (var(--card-w) / 2)); }
 
   #indicator {
     bottom: 10px;
   }
+}
 
-  /* Keep links/buttons on the card tappable on mobile.
-     Tap navigation is handled by JavaScript on the active card instead. */
-  .card-click-zone {
-    pointer-events: none !important;
+@media (max-width: 640px) and (orientation: landscape) {
+  :root {
+    --card-w: min(92vw, 390px, calc((100svh - 20px) / 1.78));
   }
 
-  .map-button,
-  .close-button {
-    position: relative;
-    z-index: 45;
-    pointer-events: auto;
+  .stage.is-open .card-stack {
+    transform: translateY(-4px) scale(1);
   }
 
+  .card {
+    padding-block: clamp(16px, 4.5vw, 24px);
+  }
+
+  .stationery-card {
+    padding-top: clamp(18px, 4.8vw, 26px);
+    padding-bottom: clamp(38px, 9vw, 54px);
+  }
+
+  .venue-photo img {
+    height: clamp(88px, 24svh, 128px);
+  }
 }
 
 @media (max-width: 380px) {

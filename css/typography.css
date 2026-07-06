@@ -68,9 +68,9 @@ h2,
 
 
 .card.cover-card .eyebrow {
-  margin: 0 0 clamp(6px, calc(var(--card-w) * 0.0207), 12px);
+  margin: 0 10px clamp(6px, calc(var(--card-w) * 0.0207), 12px);
   font-family: var(--font-serif);
-  font-size: clamp(.52rem, calc(var(--card-w) * 0.0213), .66rem);
+  font-size: clamp(.62rem, calc(var(--card-w) * 0.0213), .66rem);
   font-weight: 600;
   letter-spacing: .32em;
   text-transform: uppercase;
@@ -81,6 +81,7 @@ h2,
 
 .name-lockup {
   width: 100%;
+  margin-top: clamp(28px, calc(var(--card-w) * 0.0573), 32px);
   display: grid;
   justify-items: center;
   align-items: center;
@@ -116,7 +117,7 @@ h2,
 
 .date-lockup {
   width: min(100%, 294px);
-  margin-top: clamp(18px, calc(var(--card-w) * 0.0573), 32px);
+  margin-top: clamp(28px, calc(var(--card-w) * 0.0573), 32px);
   font-family: var(--font-serif);
   color: var(--muted);
   transform: translateY(clamp(2px, calc(var(--card-w) * 0.0110), 7px));
@@ -137,7 +138,7 @@ h2,
   justify-items: center;
   text-align: center;
   gap: clamp(4px, calc(var(--card-w) * 0.0171), 7px);
-  font-size: clamp(.58rem, calc(var(--card-w) * 0.023), .72rem);
+  font-size: clamp(0.78rem, calc(var(--card-w) * 0.023), .72rem);
   font-weight: 600;
   letter-spacing: .18em;
   text-transform: uppercase;

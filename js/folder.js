@@ -8,7 +8,7 @@
 */
 function initFolder({ stage, openButton }) {
   const OPEN_PRESS_DELAY = 220;
-  const CARD_READY_DELAY = 80;
+  const CARD_READY_DELAY = 120;
   const CLOSING_REPAINT_DELAY = 34;
 
   function nextFrame() {
@@ -104,8 +104,8 @@ function initFolder({ stage, openButton }) {
       await twoPaints();
 
       await Promise.all([
-        waitForTransition(leftCover, 'transform', 950),
-        waitForTransition(rightCover, 'transform', 950)
+        waitForTransition(leftCover, 'transform', 1150),
+        waitForTransition(rightCover, 'transform', 1150)
       ]);
 
       stage.classList.remove('is-revealed');

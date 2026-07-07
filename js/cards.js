@@ -78,10 +78,18 @@ function initCards({
     resetAndClose();
   }
 
-  nextButton.addEventListener('click', goNext);
-  previousButton.addEventListener('click', goPrevious);
-  nextZone.addEventListener('click', goNext);
-  previousZone.addEventListener('click', goPrevious);
+nextButton.addEventListener('click', goNext);
+previousButton.addEventListener('click', goPrevious);
+
+nextZone.addEventListener('click', () => {
+  if (window.matchMedia('(pointer: coarse)').matches) return;
+  goNext();
+});
+
+previousZone.addEventListener('click', () => {
+  if (window.matchMedia('(pointer: coarse)').matches) return;
+  goPrevious();
+});
 
   /*
     Mobile tap navigation belongs to the paper card, not a full-screen overlay.

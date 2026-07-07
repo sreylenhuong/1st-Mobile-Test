@@ -90,7 +90,9 @@
 .cover {
   width: var(--cover-w);
   z-index: 7;
+  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
   transition: transform 1.58s var(--ease-fold), box-shadow 1s ease;
 }
@@ -219,3 +221,22 @@
   pointer-events: none;
 }
 
+/* ================================
+   iPhone Safari open-folder layer fix
+================================ */
+.stage.is-open .cover {
+  z-index: 0 !important;
+  pointer-events: none;
+}
+
+.stage.is-open .base {
+  z-index: 1;
+}
+
+.stage.is-open .cards-stack,
+.stage.is-open .card-stack,
+.stage.is-open .cards {
+  z-index: 12 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}

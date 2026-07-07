@@ -205,30 +205,54 @@
   }
 }
 
-/* iPhone/Safari fallback: keep the luxury opening but avoid extreme 3D folds
-   that can cause cards to disappear on WebKit. */
+/* iPhone/Safari fallback:
+   Keep the cards flat for reliability, but let the folder covers behave like
+   hinged paper panels instead of sliding sideways. The covers fold into a thin
+   edge and fade out near the end so they do not remain visible beside the cards. */
 @supports (-webkit-touch-callout: none) {
   @media (max-width: 640px) {
     .stage {
-      -webkit-perspective: none;
-      perspective: none;
+      -webkit-perspective: 1000px;
+      perspective: 1000px;
     }
 
-    .folder-system,
-    .cover,
+    .folder-system {
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+    }
+
+    .cover {
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      transition:
+        transform 1.18s var(--ease-fold),
+        opacity .42s ease .62s;
+    }
+
     .cover-print {
       -webkit-transform-style: flat;
       transform-style: flat;
     }
 
     .stage.is-open .left-cover {
-      -webkit-transform: translate3d(-92%, 0, 0) rotateZ(-1.5deg);
-      transform: translate3d(-92%, 0, 0) rotateZ(-1.5deg);
+      opacity: 0;
+      -webkit-transform: translate3d(-10px, 0, 0) rotateY(-88deg) scaleX(.12);
+      transform: translate3d(-10px, 0, 0) rotateY(-88deg) scaleX(.12);
     }
 
     .stage.is-open .right-cover {
-      -webkit-transform: translate3d(92%, 0, 0) rotateZ(1.5deg);
-      transform: translate3d(92%, 0, 0) rotateZ(1.5deg);
+      opacity: 0;
+      -webkit-transform: translate3d(10px, 0, 0) rotateY(88deg) scaleX(.12);
+      transform: translate3d(10px, 0, 0) rotateY(88deg) scaleX(.12);
+    }
+
+    .stage.is-closing .cover {
+      opacity: 1;
+      transition:
+        transform .82s var(--ease-fold),
+        opacity .18s ease;
     }
 
     .card-stack,

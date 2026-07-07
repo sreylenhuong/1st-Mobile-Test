@@ -8,7 +8,7 @@
 */
 function initFolder({ stage, openButton }) {
   const OPEN_PRESS_DELAY = 220;
-  const CARD_READY_DELAY = 120;
+  const CARD_READY_DELAY = 80;
   const CLOSING_REPAINT_DELAY = 34;
 
   function nextFrame() {

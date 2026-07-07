@@ -3,12 +3,13 @@
   Safari/iPhone stability refactor:
   - Keep one physical action at a time.
   - Avoid relying only on stacked setTimeout calls.
-  - Cards remain physically inside the folder at all times.
-  - Covers conceal/reveal the existing card stack instead of creating a card reveal.
+  - Reveal the card stack after the folder cover transition has finished.
 */
 function initFolder({ stage, openButton }) {
   const OPEN_PRESS_DELAY = 220;
-  const CLOSE_COVER_DELAY = 60;
+  const CARD_REVEAL_DELAY = 720;
+  const CLOSE_CARD_HIDE_DELAY = 180;
+  const CLOSE_COVER_DELAY = 420;
 
   function waitForTransition(element, propertyName, fallbackMs) {
     return new Promise((resolve) => {
@@ -43,7 +44,7 @@ function initFolder({ stage, openButton }) {
     const leftCover = stage.querySelector('.left-cover');
 
     stage.classList.add('is-opening');
-    stage.classList.remove('is-ready');
+    stage.classList.remove('is-revealed', 'is-ready');
 
     // Small pressure pause so the seal feels touched before the cover moves.
     window.setTimeout(async () => {
@@ -54,13 +55,18 @@ function initFolder({ stage, openButton }) {
         await waitForTransition(leftCover, 'transform', 1350);
       }
 
-      // The cards were already inside the folder. Once the covers finish
-      // opening, hide the now-invisible cover layers from iPhone Safari's
-      // compositor. This keeps Card 1 stable without adding a fake card reveal.
-      window.requestAnimationFrame(() => {
+      // Reveal cards only after the folder has physically opened.
+      // iPhone Safari fix: keep the first card frozen for the first paint,
+      // then mark the invitation ready on the next frame. This prevents the
+      // first card from inheriting an unfinished opening transition.
+      stage.classList.add('is-revealed');
+
+      // Let the card stack complete its gentle reveal before hiding the
+      // transparent cover layers from iPhone Safari's compositor.
+      window.setTimeout(() => {
         stage.classList.add('is-ready');
         stage.classList.remove('is-opening');
-      });
+      }, CARD_REVEAL_DELAY);
     }, OPEN_PRESS_DELAY);
   }
 
@@ -69,9 +75,13 @@ function initFolder({ stage, openButton }) {
 
     stage.classList.add('is-closing');
 
-    // Bring the covers back into the render tree first. The cards stay in
-    // place on the base, then the covers close over them like a real folder.
+    // Bring the covers back into the render tree first, then let the cards
+    // settle away before the covers close. This preserves the physical order.
     stage.classList.remove('is-ready');
+
+    window.setTimeout(() => {
+      stage.classList.remove('is-revealed');
+    }, CLOSE_CARD_HIDE_DELAY);
 
     window.setTimeout(() => {
       stage.classList.remove('is-open');

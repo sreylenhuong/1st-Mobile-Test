@@ -67,3 +67,25 @@ h1, h2 {
 
 h1 { font-size: clamp(3.1rem, 15vw, 5.6rem); }
 h2 { font-size: clamp(2.1rem, 9vw, 3.6rem); }
+
+button,
+.card-click-zone,
+.seal-trigger {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+button:focus,
+button:active,
+button:focus-visible,
+.card-click-zone:focus,
+.card-click-zone:active,
+.card-click-zone:focus-visible,
+.seal-trigger:focus,
+.seal-trigger:active,
+.seal-trigger:focus-visible {
+  outline: none;
+  box-shadow: none;
+}

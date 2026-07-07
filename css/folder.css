@@ -62,7 +62,7 @@
 .base {
   left: var(--cover-w);
   width: var(--card-w);
-  z-index: 1;
+  z-index: 0;
 }
 
 .base::after {
@@ -219,24 +219,4 @@
 .stage.is-closing .seal-trigger,
 .stage.is-opening .seal-trigger {
   pointer-events: none;
-}
-
-/* ================================
-   iPhone Safari open-folder layer fix
-================================ */
-.stage.is-open .cover {
-  z-index: 0 !important;
-  pointer-events: none;
-}
-
-.stage.is-open .base {
-  z-index: 1;
-}
-
-.stage.is-open .cards-stack,
-.stage.is-open .card-stack,
-.stage.is-open .cards {
-  z-index: 12 !important;
-  opacity: 1 !important;
-  visibility: visible !important;
 }

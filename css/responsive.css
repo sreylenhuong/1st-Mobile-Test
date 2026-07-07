@@ -117,13 +117,6 @@
     gap: clamp(10px, calc(var(--card-w) * 0.0326), 14px);
   }
 
-  .finding-title {
-    margin-bottom: clamp(4px, calc(var(--card-w) * 0.0109), 6px);
-  }
-
-  .venue-card .finding-us p {
-    margin-block: 2px;
-  }
 
   .map-button {
     position: relative;
@@ -133,14 +126,6 @@
     font-size: clamp(.72rem, calc(var(--card-w) * 0.031), .84rem);
   }
 
-  .venue-photo {
-    margin-top: clamp(4px, calc(var(--card-w) * 0.0130), 7px);
-  }
-
-  .venue-photo img {
-    height: clamp(104px, 28svh, 154px);
-    object-position: center 45%;
-  }
 
   .countdown div {
     inline-size: clamp(86px, calc(var(--card-w) * 0.2609), 104px);

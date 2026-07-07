@@ -581,7 +581,6 @@
 
 /* Card 5: venue */
 .venue-card {
-  --stationery-after-header: clamp(6px, calc(var(--card-w) * 0.0183), 10px);
   --stationery-after-hero: clamp(10px, calc(var(--card-w) * 0.0322), 15px);
   --stationery-body-gap: clamp(7px, calc(var(--card-w) * 0.0220), 10px);
   --stationery-divider-top: clamp(5px, calc(var(--card-w) * 0.0146), 8px);
@@ -658,9 +657,9 @@
   font-weight: 650;
 }
 
-.venue-photo {
+.venue-photo { 
   width: 100%;
-  margin-top: 2px;
+  margin-top: 5px;
   border-radius: 15px;
   overflow: hidden;
   border: 1px solid rgba(221, 191, 198, .58);
@@ -679,8 +678,7 @@
 
 /* Card 6: thank you and countdown */
 .thank-you-card {
-  --stationery-after-header: clamp(17px, calc(var(--card-w) * 0.0537), 25px);
-  --stationery-after-hero: clamp(16px, calc(var(--card-w) * 0.0488), 24px);
+  --stationery-after-hero: clamp(30px, calc(var(--card-w) * 0.0788), 35px);
   --stationery-body-gap: clamp(7px, calc(var(--card-w) * 0.0207), 10px);
   --stationery-divider-top: clamp(19px, calc(var(--card-w) * 0.0537), 27px);
   --stationery-divider-bottom: clamp(34px, calc(var(--card-w) * 0.0976), 48px);

@@ -424,92 +424,66 @@
 }
 
 /* ================================
-   iPhone root glitch fix
-   After the folder has finished opening, the covers are no longer visible.
-   Keeping transparent 3D covers in the render tree can make iPhone Safari
-   keep compositing over Card 1. Hide them once the invitation is ready, and
-   show them again as soon as closing begins.
+   iPhone open/close stability
+   Keep the physical illusion: cards are visible inside the folder as soon as
+   opening starts. The card layer is frozen until the covers finish moving.
+   Do not hide the covers after opening; iPhone Safari glitches when a hidden
+   3D right cover is made visible again for closing.
 ================================ */
 @supports (-webkit-touch-callout: none) {
   @media (max-width: 640px) {
-    .stage.is-ready:not(.is-closing) .cover,
-    .stage.is-ready:not(.is-closing) .cover-print,
-    .stage.is-ready:not(.is-closing) .seal-print {
-      visibility: hidden !important;
+    .stage.is-opening .card-stack,
+    .stage.is-open:not(.is-ready):not(.is-closing) .card-stack,
+    .stage.is-closing.is-open .card-stack {
+      opacity: 1 !important;
       pointer-events: none !important;
-    }
-
-    .stage.is-ready:not(.is-closing) .cover {
+      -webkit-transform: translate3d(0, -10px, 0) scale(1) !important;
+      transform: translate3d(0, -10px, 0) scale(1) !important;
       transition: none !important;
     }
-  }
-}
 
+    .stage.is-opening .card,
+    .stage.is-open:not(.is-ready) .card,
+    .stage.is-closing.is-open .card {
+      transition: none !important;
+      animation: none !important;
+      will-change: auto;
+    }
 
-/* iPhone/mobile closing override placed last so it wins while both
-   is-open and is-closing are present. */
-@media (max-width: 640px) {
-  .stage.is-open.is-closing .left-cover {
-    opacity: 1;
-    -webkit-transform: translate3d(0, 0, 0) rotateY(0deg) scaleX(1);
-    transform: translate3d(0, 0, 0) rotateY(0deg) scaleX(1);
-  }
+    .stage.is-ready .card {
+      will-change: transform, opacity;
+    }
 
-  .stage.is-open.is-closing .right-cover {
-    opacity: 1;
-    -webkit-transform: translate3d(0, 0, 0) rotateY(0deg) scaleX(1);
-    transform: translate3d(0, 0, 0) rotateY(0deg) scaleX(1);
-  }
-}
-
-/* ================================
-   iPhone open/close timing correction
-   Cards must not paint before the covers finish opening. During close, the
-   open covers are restored for two animation frames before they fold shut.
-================================ */
-@supports (-webkit-touch-callout: none) {
-  @media (max-width: 640px) {
-    .stage.is-opening:not(.is-revealed) .card-stack,
-    .stage.is-open:not(.is-revealed):not(.is-closing) .card-stack {
+    .stage.is-closing:not(.is-open) .card-stack {
       opacity: 0 !important;
       pointer-events: none !important;
-      -webkit-transform: translate3d(0, 6px, 0) scale(.99) !important;
-      transform: translate3d(0, 6px, 0) scale(.99) !important;
-      transition: none !important;
+      transition:
+        transform .28s ease,
+        opacity .24s ease !important;
     }
 
-    .stage.is-preparing-close .cover,
-    .stage.is-preparing-close .cover-print,
-    .stage.is-preparing-close .seal-print {
+    .stage.is-closing .cover,
+    .stage.is-closing .cover-print,
+    .stage.is-closing .seal-print {
       visibility: visible !important;
+      opacity: 1 !important;
       pointer-events: none !important;
-    }
-
-    .stage.is-preparing-close .cover {
-      transition: none !important;
-      opacity: 0 !important;
-    }
-
-    .stage.is-open.is-preparing-close .left-cover {
-      -webkit-transform: translate3d(-10px, 0, 0) rotateY(-88deg) scaleX(.12) !important;
-      transform: translate3d(-10px, 0, 0) rotateY(-88deg) scaleX(.12) !important;
-    }
-
-    .stage.is-open.is-preparing-close .right-cover {
-      -webkit-transform: translate3d(10px, 0, 0) rotateY(88deg) scaleX(.12) !important;
-      transform: translate3d(10px, 0, 0) rotateY(88deg) scaleX(.12) !important;
     }
 
     .stage.is-closing .cover {
-      visibility: visible !important;
-      opacity: 1 !important;
       transition: transform .82s var(--ease-fold) !important;
     }
 
-    .stage.is-open.is-closing .left-cover,
+    .stage.is-open.is-closing .left-cover {
+      -webkit-transform: rotateY(0deg) translate3d(0, 0, 0) !important;
+      transform: rotateY(0deg) translate3d(0, 0, 0) !important;
+      box-shadow: none !important;
+    }
+
     .stage.is-open.is-closing .right-cover {
-      -webkit-transform: translate3d(0, 0, 0) rotateY(0deg) scaleX(1) !important;
-      transform: translate3d(0, 0, 0) rotateY(0deg) scaleX(1) !important;
+      -webkit-transform: rotateY(0deg) translate3d(0, 0, 0) !important;
+      transform: rotateY(0deg) translate3d(0, 0, 0) !important;
+      box-shadow: none !important;
     }
   }
 }

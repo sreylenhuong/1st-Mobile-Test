@@ -34,7 +34,7 @@
   finish. No transform/opacity transition runs here, so nothing on the card
   layer animates while the cover's own transform is still resolving.
 */
-.stage.is-open:not(.is-ready) .card-stack {
+.stage.is-open:not(.is-ready):not(.is-closing) .card-stack {
   opacity: 1;
   pointer-events: none;
   -webkit-transform: translate3d(0, -14px, 0) scale(1);

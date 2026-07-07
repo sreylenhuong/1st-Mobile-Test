@@ -354,7 +354,7 @@
       transform is still resolving — that overlap is what caused the original
       iPhone glitch.
     */
-    .stage.is-open:not(.is-ready) .card-stack {
+    .stage.is-open:not(.is-ready):not(.is-closing) .card-stack {
       opacity: 1 !important;
       pointer-events: none !important;
       -webkit-transform: translate3d(0, -10px, 0) scale(1) !important;

@@ -148,6 +148,24 @@
   box-shadow: 18px 18px 38px rgba(79,48,38,.15);
 }
 
+
+
+/* Closing must win over the open-cover transforms.
+   This is intentionally placed after the .stage.is-open .right-cover rule,
+   because the folder keeps is-open during closing so the cards stay physically
+   inside the folder until both covers have finished folding shut. */
+.stage.is-open.is-closing .left-cover {
+  -webkit-transform: rotateY(0deg);
+  transform: rotateY(0deg);
+  box-shadow: none;
+}
+
+.stage.is-open.is-closing .right-cover {
+  -webkit-transform: rotateY(0deg);
+  transform: rotateY(0deg);
+  box-shadow: none;
+}
+
 /* Full cover print is clipped into two halves by the covers. */
 .cover-print {
   position: absolute;

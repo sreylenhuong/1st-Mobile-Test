@@ -8,6 +8,7 @@
 function initFolder({ stage, openButton }) {
   const OPEN_PRESS_DELAY = 220;
   const CARD_REVEAL_DELAY = 720;
+  const CLOSING_REPAINT_DELAY = 40;
 
   function waitForTransition(element, propertyName, fallbackMs) {
     return new Promise((resolve) => {
@@ -40,6 +41,7 @@ function initFolder({ stage, openButton }) {
     ) return;
 
     const leftCover = stage.querySelector('.left-cover');
+    const rightCover = stage.querySelector('.right-cover');
 
     stage.classList.add('is-opening');
     stage.classList.remove('is-revealed', 'is-ready');
@@ -49,9 +51,10 @@ function initFolder({ stage, openButton }) {
       stage.classList.add('is-open');
       openButton.setAttribute('aria-expanded', 'true');
 
-      if (leftCover) {
-        await waitForTransition(leftCover, 'transform', 1350);
-      }
+      await Promise.all([
+        leftCover ? waitForTransition(leftCover, 'transform', 1350) : Promise.resolve(),
+        rightCover ? waitForTransition(rightCover, 'transform', 1350) : Promise.resolve()
+      ]);
 
       // Reveal cards only after the folder has physically opened.
       // iPhone Safari fix: keep the first card frozen for the first paint,
@@ -72,20 +75,31 @@ function initFolder({ stage, openButton }) {
     if (!stage.classList.contains('is-open') || stage.classList.contains('is-closing')) return;
 
     const leftCover = stage.querySelector('.left-cover');
+    const rightCover = stage.querySelector('.right-cover');
 
-    stage.classList.add('is-closing');
-    stage.classList.remove('is-ready');
     openButton.setAttribute('aria-expanded', 'false');
 
-    // is-open stays on purpose while the covers fold shut (see the
-    // .stage.is-closing cover overrides in folder.css / responsive.css).
-    // That keeps every card pinned to its already-open resting transform,
-    // so nothing on the card layer animates while the cover's 3D rotation
-    // is still resolving.
-    (async () => {
-      if (leftCover) {
-        await waitForTransition(leftCover, 'transform', 900);
-      }
+    // iPhone Safari fix:
+    // after opening, the covers are hidden with .is-ready to prevent Card 1
+    // compositing glitches. Before closing, remove .is-ready first and allow
+    // Safari one paint with the covers visible in their open position. Then
+    // add .is-closing so both covers animate back together instead of the
+    // right cover appearing late or snapping.
+    stage.classList.remove('is-ready');
+    stage.offsetHeight;
+
+    window.setTimeout(async () => {
+      stage.classList.add('is-closing');
+
+      // is-open stays on purpose while the covers fold shut (see the
+      // .stage.is-closing cover overrides in folder.css / responsive.css).
+      // That keeps every card pinned to its already-open resting transform,
+      // so nothing on the card layer animates while the cover's 3D rotation
+      // is still resolving.
+      await Promise.all([
+        leftCover ? waitForTransition(leftCover, 'transform', 900) : Promise.resolve(),
+        rightCover ? waitForTransition(rightCover, 'transform', 900) : Promise.resolve()
+      ]);
 
       // Covers are physically closed now. Fade the cards away and drop
       // is-open together; the cover is no longer moving at this point, so
@@ -96,7 +110,7 @@ function initFolder({ stage, openButton }) {
       window.setTimeout(() => {
         stage.classList.remove('is-closing');
       }, 320);
-    })();
+    }, CLOSING_REPAINT_DELAY);
   }
 
   openButton.addEventListener('click', openInvitation);

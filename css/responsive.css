@@ -444,3 +444,20 @@
     }
   }
 }
+
+
+/* iPhone/mobile closing override placed last so it wins while both
+   is-open and is-closing are present. */
+@media (max-width: 640px) {
+  .stage.is-open.is-closing .left-cover {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0) rotateY(0deg) scaleX(1);
+    transform: translate3d(0, 0, 0) rotateY(0deg) scaleX(1);
+  }
+
+  .stage.is-open.is-closing .right-cover {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0) rotateY(0deg) scaleX(1);
+    transform: translate3d(0, 0, 0) rotateY(0deg) scaleX(1);
+  }
+}

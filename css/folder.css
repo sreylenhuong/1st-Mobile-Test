@@ -13,13 +13,16 @@
   position: relative;
   width: var(--folder-open-w);
   height: var(--card-h);
+  -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
-  transform: translateY(6px) scale(.98);
+  -webkit-transform: translate3d(0, 6px, 0) scale(.98);
+  transform: translate3d(0, 6px, 0) scale(.98);
   transition: transform 1s var(--ease-luxury);
 }
 
 .stage.is-open .folder-system {
-  transform: translateY(0) scale(1);
+  -webkit-transform: translate3d(0, 0, 0) scale(1);
+  transform: translate3d(0, 0, 0) scale(1);
 }
 
 .base,
@@ -94,23 +97,27 @@
   backface-visibility: hidden;
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
-  transition: transform 1.58s var(--ease-fold), box-shadow 1s ease;
+  transition: transform 1.58s var(--ease-fold);
+  will-change: transform;
 }
 
 .left-cover {
   left: var(--cover-w);
   transform-origin: left center;
+  -webkit-transform: rotateY(0deg);
   transform: rotateY(0deg);
 }
 
 .right-cover {
   right: var(--cover-w);
   transform-origin: right center;
+  -webkit-transform: rotateY(0deg);
   transform: rotateY(0deg);
 }
 
 .stage.is-open .left-cover {
-  transform: rotateY(-178deg);
+  -webkit-transform: rotateY(-176deg);
+  transform: rotateY(-176deg);
   box-shadow: -18px 18px 38px rgba(79,48,38,.15);
 }
 
@@ -119,7 +126,8 @@
 }
 
 .stage.is-open .right-cover {
-  transform: rotateY(178deg);
+  -webkit-transform: rotateY(176deg);
+  transform: rotateY(176deg);
   box-shadow: 18px 18px 38px rgba(79,48,38,.15);
 }
 
@@ -130,6 +138,7 @@
   width: var(--card-w);
   height: var(--card-h);
   pointer-events: none;
+  -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
 }
 

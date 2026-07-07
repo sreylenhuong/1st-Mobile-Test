@@ -46,6 +46,7 @@
     overflow: hidden;
     display: grid;
     place-items: center;
+    -webkit-perspective: 1400px;
     perspective: 1400px;
   }
 
@@ -57,11 +58,13 @@
   .folder-system {
     width: var(--card-w);
     height: var(--card-h);
-    transform: translateY(0) scale(1);
+    -webkit-transform: translate3d(0, 0, 0) scale(1);
+    transform: translate3d(0, 0, 0) scale(1);
   }
 
   .stage.is-open .folder-system {
-    transform: translateY(-2px) scale(1);
+    -webkit-transform: translate3d(0, -2px, 0) scale(1);
+    transform: translate3d(0, -2px, 0) scale(1);
   }
 
   .base {
@@ -82,11 +85,13 @@
     left: 0;
     right: auto;
     bottom: 0;
-    transform: translateY(6px) scale(.99);
+    -webkit-transform: translate3d(0, 6px, 0) scale(.99);
+    transform: translate3d(0, 6px, 0) scale(.99);
   }
 
   .stage.is-open .card-stack {
-    transform: translateY(-10px) scale(1);
+    -webkit-transform: translate3d(0, -10px, 0) scale(1);
+    transform: translate3d(0, -10px, 0) scale(1);
   }
 
   .card {
@@ -164,7 +169,8 @@
   }
 
   .stage.is-open .card-stack {
-    transform: translateY(-4px) scale(1);
+    -webkit-transform: translate3d(0, -4px, 0) scale(1);
+    transform: translate3d(0, -4px, 0) scale(1);
   }
 
   .card {
@@ -196,5 +202,39 @@
 
   .venue-photo img {
     height: clamp(110px, 28svh, 150px);
+  }
+}
+
+/* iPhone/Safari fallback: keep the luxury opening but avoid extreme 3D folds
+   that can cause cards to disappear on WebKit. */
+@supports (-webkit-touch-callout: none) {
+  @media (max-width: 640px) {
+    .stage {
+      -webkit-perspective: none;
+      perspective: none;
+    }
+
+    .folder-system,
+    .cover,
+    .cover-print {
+      -webkit-transform-style: flat;
+      transform-style: flat;
+    }
+
+    .stage.is-open .left-cover {
+      -webkit-transform: translate3d(-92%, 0, 0) rotateZ(-1.5deg);
+      transform: translate3d(-92%, 0, 0) rotateZ(-1.5deg);
+    }
+
+    .stage.is-open .right-cover {
+      -webkit-transform: translate3d(92%, 0, 0) rotateZ(1.5deg);
+      transform: translate3d(92%, 0, 0) rotateZ(1.5deg);
+    }
+
+    .card-stack,
+    .card {
+      -webkit-transform-style: flat;
+      transform-style: flat;
+    }
   }
 }

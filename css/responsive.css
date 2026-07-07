@@ -335,3 +335,19 @@
     }
   }
 }
+
+@supports (-webkit-touch-callout: none) {
+  @media (max-width: 640px) {
+    .card.cover-card .eyebrow,
+    .cover-card .name-lockup,
+    .cover-card .date-lockup,
+    .cover-card .card-signature {
+      transform: none !important;
+      filter: none !important;
+    }
+
+    .card.cover-card {
+      contain: layout paint;
+    }
+  }
+}

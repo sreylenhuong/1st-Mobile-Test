@@ -336,18 +336,62 @@
   }
 }
 
+/* ================================
+   iPhone first-open stability fix
+   The first card was glitching only after the seal click, then became stable
+   after one navigation. That means the issue was the initial reveal state.
+   On iPhone, the first reveal now paints the card stack in its final position
+   without a card/card-stack transition. Normal card handling is restored after
+   .is-ready is added by folder.js.
+================================ */
 @supports (-webkit-touch-callout: none) {
   @media (max-width: 640px) {
-    .card.cover-card .eyebrow,
-    .cover-card .name-lockup,
-    .cover-card .date-lockup,
-    .cover-card .card-signature {
-      transform: none !important;
-      filter: none !important;
+    .stage.is-open:not(.is-ready) .card-stack,
+    .stage.is-opening .card-stack {
+      -webkit-transform: translate3d(0, -14px, 0) scale(1) !important;
+      transform: translate3d(0, -14px, 0) scale(1) !important;
+      transition: none !important;
+      opacity: 1;
     }
 
-    .card.cover-card {
-      contain: layout paint;
+    .stage.is-open:not(.is-ready) .card,
+    .stage.is-opening .card {
+      transition: none !important;
+      animation: none !important;
+      will-change: auto;
+    }
+
+    .stage.is-open:not(.is-ready) .card[data-position="active"],
+    .stage.is-opening .card[data-position="active"] {
+      -webkit-transform: translate3d(0, 0, 0) scale(1) rotateZ(0deg) !important;
+      transform: translate3d(0, 0, 0) scale(1) rotateZ(0deg) !important;
+      opacity: 1 !important;
+    }
+
+    .stage.is-ready .card {
+      will-change: transform, opacity;
+    }
+  }
+}
+
+/* ================================
+   iPhone root glitch fix
+   After the folder has finished opening, the covers are no longer visible.
+   Keeping transparent 3D covers in the render tree can make iPhone Safari
+   keep compositing over Card 1. Hide them once the invitation is ready, and
+   show them again as soon as closing begins.
+================================ */
+@supports (-webkit-touch-callout: none) {
+  @media (max-width: 640px) {
+    .stage.is-ready:not(.is-closing) .cover,
+    .stage.is-ready:not(.is-closing) .cover-print,
+    .stage.is-ready:not(.is-closing) .seal-print {
+      visibility: hidden !important;
+      pointer-events: none !important;
+    }
+
+    .stage.is-ready:not(.is-closing) .cover {
+      transition: none !important;
     }
   }
 }

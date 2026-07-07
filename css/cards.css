@@ -28,6 +28,20 @@
   transform: translate3d(0, -14px, 0) scale(1);
 }
 
+/*
+  The cards live inside the folder before it opens, so make the stack visible
+  and static the instant the cover starts moving, instead of waiting for it to
+  finish. No transform/opacity transition runs here, so nothing on the card
+  layer animates while the cover's own transform is still resolving.
+*/
+.stage.is-open:not(.is-ready) .card-stack {
+  opacity: 1;
+  pointer-events: none;
+  -webkit-transform: translate3d(0, -14px, 0) scale(1);
+  transform: translate3d(0, -14px, 0) scale(1);
+  transition: none;
+}
+
 .stage.is-closing .card-stack,
 .stage.is-open.is-closing .card-stack {
   opacity: 0;

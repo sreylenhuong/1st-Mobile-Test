@@ -8,8 +8,6 @@
 function initFolder({ stage, openButton }) {
   const OPEN_PRESS_DELAY = 220;
   const CARD_REVEAL_DELAY = 720;
-  const CLOSE_CARD_HIDE_DELAY = 180;
-  const CLOSE_COVER_DELAY = 420;
 
   function waitForTransition(element, propertyName, fallbackMs) {
     return new Promise((resolve) => {
@@ -73,24 +71,32 @@ function initFolder({ stage, openButton }) {
   function closeInvitation() {
     if (!stage.classList.contains('is-open') || stage.classList.contains('is-closing')) return;
 
+    const leftCover = stage.querySelector('.left-cover');
+
     stage.classList.add('is-closing');
-
-    // Bring the covers back into the render tree first, then let the cards
-    // settle away before the covers close. This preserves the physical order.
     stage.classList.remove('is-ready');
+    openButton.setAttribute('aria-expanded', 'false');
 
-    window.setTimeout(() => {
+    // is-open stays on purpose while the covers fold shut (see the
+    // .stage.is-closing cover overrides in folder.css / responsive.css).
+    // That keeps every card pinned to its already-open resting transform,
+    // so nothing on the card layer animates while the cover's 3D rotation
+    // is still resolving.
+    (async () => {
+      if (leftCover) {
+        await waitForTransition(leftCover, 'transform', 900);
+      }
+
+      // Covers are physically closed now. Fade the cards away and drop
+      // is-open together; the cover is no longer moving at this point, so
+      // this opacity-only fade doesn't overlap any 3D transform animation.
       stage.classList.remove('is-revealed');
-    }, CLOSE_CARD_HIDE_DELAY);
-
-    window.setTimeout(() => {
       stage.classList.remove('is-open');
-      openButton.setAttribute('aria-expanded', 'false');
-    }, CLOSE_COVER_DELAY);
 
-    window.setTimeout(() => {
-      stage.classList.remove('is-closing');
-    }, 1240);
+      window.setTimeout(() => {
+        stage.classList.remove('is-closing');
+      }, 320);
+    })();
   }
 
   openButton.addEventListener('click', openInvitation);

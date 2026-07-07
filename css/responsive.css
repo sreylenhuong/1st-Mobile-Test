@@ -255,6 +255,16 @@
         opacity .18s ease;
     }
 
+    .stage.is-closing .left-cover {
+      -webkit-transform: translate3d(0, 0, 0) rotateY(0deg) scaleX(1);
+      transform: translate3d(0, 0, 0) rotateY(0deg) scaleX(1);
+    }
+
+    .stage.is-closing .right-cover {
+      -webkit-transform: translate3d(0, 0, 0) rotateY(0deg) scaleX(1);
+      transform: translate3d(0, 0, 0) rotateY(0deg) scaleX(1);
+    }
+
     .card-stack,
     .card {
       -webkit-transform-style: flat;
@@ -360,6 +370,28 @@
       -webkit-transform: translate3d(0, -10px, 0) scale(1) !important;
       transform: translate3d(0, -10px, 0) scale(1) !important;
       transition: none !important;
+    }
+
+    /*
+      Same idea while closing: keep the stack visible and frozen for as long
+      as the covers are still folding shut (is-closing + is-open both on),
+      then let it fade once is-open is dropped and the covers have stopped
+      moving.
+    */
+    .stage.is-closing.is-open .card-stack {
+      opacity: 1 !important;
+      pointer-events: none !important;
+      -webkit-transform: translate3d(0, -10px, 0) scale(1) !important;
+      transform: translate3d(0, -10px, 0) scale(1) !important;
+      transition: none !important;
+    }
+
+    .stage.is-closing:not(.is-open) .card-stack {
+      opacity: 0 !important;
+      pointer-events: none !important;
+      transition:
+        transform .32s ease,
+        opacity .28s ease !important;
     }
 
     .stage.is-revealed .card-stack {

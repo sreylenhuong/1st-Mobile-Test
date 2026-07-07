@@ -42,14 +42,41 @@
   transition: none;
 }
 
-.stage.is-closing .card-stack,
-.stage.is-open.is-closing .card-stack {
+/*
+  While the covers are still folding shut (is-closing + is-open both
+  present, see folder.js), keep the stack exactly as it was: visible and
+  static. No transition runs here, so nothing on the card layer animates
+  while the cover's own transform is still resolving.
+*/
+.stage.is-closing.is-open .card-stack {
+  opacity: 1;
+  pointer-events: none;
+  -webkit-transform: translate3d(0, -14px, 0) scale(1);
+  transform: translate3d(0, -14px, 0) scale(1);
+  transition: none;
+}
+
+/*
+  Once the covers have finished closing, is-open is dropped and the cards
+  fade away. The cover isn't moving any more at this point, so this
+  opacity-only fade never overlaps a 3D transform animation.
+*/
+.stage.is-closing:not(.is-open) .card-stack {
   opacity: 0;
   pointer-events: none;
   -webkit-transform: translate3d(0, -8px, 0) scale(.996);
   transform: translate3d(0, -8px, 0) scale(.996);
   transition-duration: .28s;
   transition-delay: 0s;
+}
+
+/*
+  Same idea for the individual cards: freeze their transform completely
+  while the covers are still folding shut, overriding the small "settle"
+  animation below so it can't run concurrently with the cover's rotation.
+*/
+.stage.is-closing.is-open .card[data-position] {
+  transition: none;
 }
 
 .card {

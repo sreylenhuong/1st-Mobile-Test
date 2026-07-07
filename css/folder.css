@@ -125,6 +125,23 @@
   transition-duration: .82s;
 }
 
+/*
+  is-open stays on while the folder closes (see folder.js), so the cards
+  stay frozen. These overrides make the covers fold back shut anyway, tied
+  purely to is-closing, regardless of is-open still being present.
+*/
+.stage.is-closing .left-cover {
+  -webkit-transform: rotateY(0deg);
+  transform: rotateY(0deg);
+  box-shadow: none;
+}
+
+.stage.is-closing .right-cover {
+  -webkit-transform: rotateY(0deg);
+  transform: rotateY(0deg);
+  box-shadow: none;
+}
+
 .stage.is-open .right-cover {
   -webkit-transform: rotateY(176deg);
   transform: rotateY(176deg);

@@ -89,7 +89,7 @@
     transform: translate3d(0, 6px, 0) scale(.99);
   }
 
-  .stage.is-open .card-stack {
+  .stage.is-revealed .card-stack {
     -webkit-transform: translate3d(0, -10px, 0) scale(1);
     transform: translate3d(0, -10px, 0) scale(1);
   }
@@ -168,7 +168,7 @@
     --card-w: min(92vw, 390px, calc((100svh - 20px) / 1.78));
   }
 
-  .stage.is-open .card-stack {
+  .stage.is-revealed .card-stack {
     -webkit-transform: translate3d(0, -4px, 0) scale(1);
     transform: translate3d(0, -4px, 0) scale(1);
   }
@@ -259,22 +259,6 @@
     .card {
       -webkit-transform-style: flat;
       transform-style: flat;
-    }
-  }
-}
-
-/* iPhone stability patch:
-   The first card already rises with .card-stack. On iPhone Safari, also animating
-   the active first card can re-trigger while the folded covers finish fading,
-   which looks like nonstop glitching until the user navigates away. Keep Card 1
-   still after the folder opens and let only the stack perform the reveal. */
-@supports (-webkit-touch-callout: none) {
-  @media (max-width: 640px) {
-    .stage.is-open .card.cover-card[data-position="active"] {
-      -webkit-animation: none !important;
-      animation: none !important;
-      -webkit-transform: translate3d(0, 0, 0) scale(1) rotateZ(0deg) !important;
-      transform: translate3d(0, 0, 0) scale(1) rotateZ(0deg) !important;
     }
   }
 }

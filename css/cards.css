@@ -19,7 +19,7 @@
   transition: transform .95s var(--ease-luxury) .46s;
 }
 
-.stage.is-open .card-stack {
+.stage.is-revealed .card-stack {
   pointer-events: auto;
   -webkit-transform: translate3d(0, -14px, 0) scale(1);
   transform: translate3d(0, -14px, 0) scale(1);
@@ -127,16 +127,10 @@
     inset 0 -2px 3px rgba(142,105,82,.07);
 }
 
-.stage.is-open .card.cover-card[data-position="active"] {
-  animation: card-one-rise .72s var(--ease-luxury) .55s both;
-}
-
+/* Card 1 no longer has its own open animation.
+   The card stack reveals once after the folder finishes opening, which prevents
+   iPhone Safari from re-triggering the first-card animation loop. */
 .stage.is-open[data-nav] .card.cover-card { animation: none; }
-
-@keyframes card-one-rise {
-  0% { transform: translate3d(0, 12px, 0) scale(.992) rotateZ(0deg); }
-  100% { transform: translate3d(0, 0, 0) scale(1) rotateZ(0deg); }
-}
 
 .stage.is-open .card[data-position="next"] {
   transform: translate3d(.4%, 7px, 0) scale(.982) rotateZ(.06deg);
@@ -250,7 +244,7 @@
   pointer-events: none;
 }
 
-.stage.is-open:not(.is-closing) .card-click-zone { pointer-events: auto; }
+.stage.is-revealed:not(.is-closing) .card-click-zone { pointer-events: auto; }
 .prev-zone { left: calc(50% - (var(--card-w) / 2)); }
 .next-zone { right: calc(50% - (var(--card-w) / 2)); }
 
@@ -277,12 +271,12 @@
 #prevCard { left: calc(50% - (var(--card-w) * .55)); }
 #nextCard { right: calc(50% - (var(--card-w) * .55)); }
 
-.stage.is-open:not(.is-closing) #prevCard,
-.stage.is-open:not(.is-closing) #nextCard { pointer-events: auto; }
+.stage.is-revealed:not(.is-closing) #prevCard,
+.stage.is-revealed:not(.is-closing) #nextCard { pointer-events: auto; }
 
 @media (hover: hover) {
-  .stage.is-open:hover #prevCard,
-  .stage.is-open:hover #nextCard { opacity: .58; }
+  .stage.is-revealed:hover #prevCard,
+  .stage.is-revealed:hover #nextCard { opacity: .58; }
 
   #prevCard:hover,
   #nextCard:hover {
@@ -307,7 +301,7 @@
   transition: opacity .32s ease;
 }
 
-.stage.is-open:hover #indicator { opacity: .45; }
+.stage.is-revealed:hover #indicator { opacity: .45; }
 
 /* Shared text defaults */
 .eyebrow {
@@ -342,10 +336,10 @@
   transition: opacity .22s ease;
 }
 
-.stage.is-open .card:not([data-position="active"]) > * { opacity: .001; }
-.stage.is-open .card:not([data-position="active"]) a,
-.stage.is-open .card:not([data-position="active"]) button { pointer-events: none; }
-.stage.is-open[data-nav="next"] .card[data-position="prev"] > * { opacity: 1; }
+.stage.is-revealed .card:not([data-position="active"]) > * { opacity: .001; }
+.stage.is-revealed .card:not([data-position="active"]) a,
+.stage.is-revealed .card:not([data-position="active"]) button { pointer-events: none; }
+.stage.is-revealed[data-nav="next"] .card[data-position="prev"] > * { opacity: 1; }
 
 /* ================================
    Shared stationery card system

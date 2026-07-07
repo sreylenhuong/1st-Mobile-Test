@@ -11,6 +11,29 @@ function initCards({
   let current = 0;
   let isCardTurning = false;
 
+  function waitForCardTransition(card, fallbackMs = 620) {
+    return new Promise((resolve) => {
+      let done = false;
+
+      const finish = () => {
+        if (done) return;
+        done = true;
+        card.removeEventListener('transitionend', onEnd);
+        window.clearTimeout(timer);
+        resolve();
+      };
+
+      const onEnd = (event) => {
+        if (event.target !== card) return;
+        if (event.propertyName !== 'transform') return;
+        finish();
+      };
+
+      const timer = window.setTimeout(finish, fallbackMs);
+      card.addEventListener('transitionend', onEnd);
+    });
+  }
+
   function updateCards() {
     cards.forEach((card, index) => {
       let position = 'hidden-next';
@@ -42,36 +65,38 @@ function initCards({
     closeInvitation();
   }
 
-  function goNext() {
-    if (!stage.classList.contains('is-open') || stage.classList.contains('is-closing') || isCardTurning) return;
+  async function goNext() {
+    if (!stage.classList.contains('is-revealed') || stage.classList.contains('is-closing') || isCardTurning) return;
 
     if (current < cards.length - 1) {
       isCardTurning = true;
       stage.dataset.nav = 'next';
       current += 1;
       updateCards();
-      window.setTimeout(() => {
-        if (stage.dataset.nav === 'next') delete stage.dataset.nav;
-        isCardTurning = false;
-      }, 590);
+
+      await waitForCardTransition(cards[current], 620);
+
+      if (stage.dataset.nav === 'next') delete stage.dataset.nav;
+      isCardTurning = false;
       return;
     }
 
     resetAndClose();
   }
 
-  function goPrevious() {
-    if (!stage.classList.contains('is-open') || stage.classList.contains('is-closing') || isCardTurning) return;
+  async function goPrevious() {
+    if (!stage.classList.contains('is-revealed') || stage.classList.contains('is-closing') || isCardTurning) return;
 
     if (current > 0) {
       isCardTurning = true;
       stage.dataset.nav = 'prev';
       current -= 1;
       updateCards();
-      window.setTimeout(() => {
-        if (stage.dataset.nav === 'prev') delete stage.dataset.nav;
-        isCardTurning = false;
-      }, 590);
+
+      await waitForCardTransition(cards[current], 620);
+
+      if (stage.dataset.nav === 'prev') delete stage.dataset.nav;
+      isCardTurning = false;
       return;
     }
 

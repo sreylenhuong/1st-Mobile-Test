@@ -644,7 +644,7 @@
 .venue-card .finding-us p {
   margin: 5px 5px 0;
   max-width: none;
-  font-size: clamp(.3rem, calc(var(--card-w) * 0.01), .54rem);
+  font-size: clamp(.4rem, calc(var(--card-w) * 0.11), .54rem);
   line-height: 1.3;
   letter-spacing: .01em;
   color: rgba(88, 62, 55, .78);
@@ -658,8 +658,9 @@
 }
 
 .venue-photo { 
-  width: 100%;
-  margin-top: 5px;
+  width: 80%;
+  height: 170px;
+  margin-top: 10px;
   border-radius: 15px;
   overflow: hidden;
   border: 1px solid rgba(221, 191, 198, .58);
@@ -671,9 +672,9 @@
 .venue-photo img {
   display: block;
   width: 100%;
-  height: clamp(132px, calc(var(--card-w) * 0.4268), 190px);
+  height: 100%;
   object-fit: cover;
-  object-position: center 68%;
+  object-position: center 20%;
 }
 
 /* Card 6: thank you and countdown */

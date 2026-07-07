@@ -89,7 +89,7 @@
     transform: translate3d(0, 6px, 0) scale(.99);
   }
 
-  .stage.is-revealed .card-stack {
+  .stage.is-open .card-stack {
     -webkit-transform: translate3d(0, -10px, 0) scale(1);
     transform: translate3d(0, -10px, 0) scale(1);
   }
@@ -346,18 +346,14 @@
 ================================ */
 @supports (-webkit-touch-callout: none) {
   @media (max-width: 640px) {
-    .stage.is-opening:not(.is-revealed) .card-stack {
-      opacity: 0 !important;
-      pointer-events: none !important;
+    .stage .card-stack {
+      opacity: 1 !important;
     }
 
-    .stage.is-revealed .card-stack {
-      opacity: 1;
+    .stage.is-open .card-stack {
       -webkit-transform: translate3d(0, -10px, 0) scale(1);
       transform: translate3d(0, -10px, 0) scale(1);
-      transition:
-        transform .68s var(--ease-luxury),
-        opacity .32s ease;
+      transition: transform .68s var(--ease-luxury);
     }
 
     .stage.is-open:not(.is-ready) .card,

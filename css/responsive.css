@@ -346,9 +346,20 @@
 ================================ */
 @supports (-webkit-touch-callout: none) {
   @media (max-width: 640px) {
-    .stage.is-opening:not(.is-revealed) .card-stack {
-      opacity: 0 !important;
+    /*
+      The cards are already inside the folder before it opens, so they should
+      be visible from the moment the cover starts moving, not after it
+      finishes. Keep this state fully static (no transition, forced end
+      values) so nothing on the card layer animates while the cover's own 3D
+      transform is still resolving — that overlap is what caused the original
+      iPhone glitch.
+    */
+    .stage.is-open:not(.is-ready) .card-stack {
+      opacity: 1 !important;
       pointer-events: none !important;
+      -webkit-transform: translate3d(0, -10px, 0) scale(1) !important;
+      transform: translate3d(0, -10px, 0) scale(1) !important;
+      transition: none !important;
     }
 
     .stage.is-revealed .card-stack {

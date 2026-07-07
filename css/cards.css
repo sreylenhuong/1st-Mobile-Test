@@ -13,13 +13,16 @@
   isolation: isolate;
   -webkit-transform: translate3d(0, 10px, 0) scale(.982);
   overflow: visible;
-  opacity: 1;
+  opacity: 0;
   pointer-events: none;
   transform: translate3d(0, 10px, 0) scale(.982);
-  transition: transform .95s var(--ease-luxury) .46s;
+  transition:
+    transform .95s var(--ease-luxury) .08s,
+    opacity .36s ease .08s;
 }
 
 .stage.is-revealed .card-stack {
+  opacity: 1;
   pointer-events: auto;
   -webkit-transform: translate3d(0, -14px, 0) scale(1);
   transform: translate3d(0, -14px, 0) scale(1);
@@ -27,6 +30,7 @@
 
 .stage.is-closing .card-stack,
 .stage.is-open.is-closing .card-stack {
+  opacity: 0;
   pointer-events: none;
   -webkit-transform: translate3d(0, -8px, 0) scale(.996);
   transform: translate3d(0, -8px, 0) scale(.996);

@@ -7,7 +7,9 @@
 */
 function initFolder({ stage, openButton }) {
   const OPEN_PRESS_DELAY = 220;
-  const CLOSE_STACK_DELAY = 280;
+  const CARD_REVEAL_DELAY = 720;
+  const CLOSE_CARD_HIDE_DELAY = 180;
+  const CLOSE_COVER_DELAY = 420;
 
   function waitForTransition(element, propertyName, fallbackMs) {
     return new Promise((resolve) => {
@@ -42,7 +44,7 @@ function initFolder({ stage, openButton }) {
     const leftCover = stage.querySelector('.left-cover');
 
     stage.classList.add('is-opening');
-    stage.classList.remove('is-revealed');
+    stage.classList.remove('is-revealed', 'is-ready');
 
     // Small pressure pause so the seal feels touched before the cover moves.
     window.setTimeout(async () => {
@@ -54,8 +56,17 @@ function initFolder({ stage, openButton }) {
       }
 
       // Reveal cards only after the folder has physically opened.
+      // iPhone Safari fix: keep the first card frozen for the first paint,
+      // then mark the invitation ready on the next frame. This prevents the
+      // first card from inheriting an unfinished opening transition.
       stage.classList.add('is-revealed');
-      stage.classList.remove('is-opening');
+
+      // Let the card stack complete its gentle reveal before hiding the
+      // transparent cover layers from iPhone Safari's compositor.
+      window.setTimeout(() => {
+        stage.classList.add('is-ready');
+        stage.classList.remove('is-opening');
+      }, CARD_REVEAL_DELAY);
     }, OPEN_PRESS_DELAY);
   }
 
@@ -63,17 +74,23 @@ function initFolder({ stage, openButton }) {
     if (!stage.classList.contains('is-open') || stage.classList.contains('is-closing')) return;
 
     stage.classList.add('is-closing');
-    stage.classList.remove('is-revealed');
 
-    // Let the cards settle first, then close the folder covers over the stack.
+    // Bring the covers back into the render tree first, then let the cards
+    // settle away before the covers close. This preserves the physical order.
+    stage.classList.remove('is-ready');
+
+    window.setTimeout(() => {
+      stage.classList.remove('is-revealed');
+    }, CLOSE_CARD_HIDE_DELAY);
+
     window.setTimeout(() => {
       stage.classList.remove('is-open');
       openButton.setAttribute('aria-expanded', 'false');
-    }, CLOSE_STACK_DELAY);
+    }, CLOSE_COVER_DELAY);
 
     window.setTimeout(() => {
       stage.classList.remove('is-closing');
-    }, 1120);
+    }, 1240);
   }
 
   openButton.addEventListener('click', openInvitation);

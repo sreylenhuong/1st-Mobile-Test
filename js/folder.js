@@ -7,8 +7,17 @@
 */
 function initFolder({ stage, openButton }) {
   const OPEN_PRESS_DELAY = 220;
-  const CARD_REVEAL_DELAY = 720;
+  const CARD_REVEAL_DELAY = 80;
   const CLOSING_REPAINT_DELAY = 40;
+
+  function nextFrame() {
+    return new Promise((resolve) => window.requestAnimationFrame(() => resolve()));
+  }
+
+  async function twoPaints() {
+    await nextFrame();
+    await nextFrame();
+  }
 
   function waitForTransition(element, propertyName, fallbackMs) {
     return new Promise((resolve) => {
@@ -56,14 +65,12 @@ function initFolder({ stage, openButton }) {
         rightCover ? waitForTransition(rightCover, 'transform', 1350) : Promise.resolve()
       ]);
 
-      // Reveal cards only after the folder has physically opened.
-      // iPhone Safari fix: keep the first card frozen for the first paint,
-      // then mark the invitation ready on the next frame. This prevents the
-      // first card from inheriting an unfinished opening transition.
+      // iPhone/Safari needs a clean paint after the covers finish moving.
+      // The cards are revealed only after that paint, so they cannot appear
+      // before the folder visually opens or inherit the cover's 3D layer.
+      await twoPaints();
       stage.classList.add('is-revealed');
 
-      // Let the card stack complete its gentle reveal before hiding the
-      // transparent cover layers from iPhone Safari's compositor.
       window.setTimeout(() => {
         stage.classList.add('is-ready');
         stage.classList.remove('is-opening');
@@ -85,11 +92,17 @@ function initFolder({ stage, openButton }) {
     // Safari one paint with the covers visible in their open position. Then
     // add .is-closing so both covers animate back together instead of the
     // right cover appearing late or snapping.
+    // Bring the hidden open covers back first, but do not close them yet.
+    // iPhone Safari needs two paints here; otherwise the right cover can
+    // reappear late, snap, or close after the cards have already changed.
     stage.classList.remove('is-ready');
+    stage.classList.add('is-preparing-close');
     stage.offsetHeight;
 
     window.setTimeout(async () => {
+      await twoPaints();
       stage.classList.add('is-closing');
+      stage.classList.remove('is-preparing-close');
 
       // is-open stays on purpose while the covers fold shut (see the
       // .stage.is-closing cover overrides in folder.css / responsive.css).

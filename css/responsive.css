@@ -461,3 +461,55 @@
     transform: translate3d(0, 0, 0) rotateY(0deg) scaleX(1);
   }
 }
+
+/* ================================
+   iPhone open/close timing correction
+   Cards must not paint before the covers finish opening. During close, the
+   open covers are restored for two animation frames before they fold shut.
+================================ */
+@supports (-webkit-touch-callout: none) {
+  @media (max-width: 640px) {
+    .stage.is-opening:not(.is-revealed) .card-stack,
+    .stage.is-open:not(.is-revealed):not(.is-closing) .card-stack {
+      opacity: 0 !important;
+      pointer-events: none !important;
+      -webkit-transform: translate3d(0, 6px, 0) scale(.99) !important;
+      transform: translate3d(0, 6px, 0) scale(.99) !important;
+      transition: none !important;
+    }
+
+    .stage.is-preparing-close .cover,
+    .stage.is-preparing-close .cover-print,
+    .stage.is-preparing-close .seal-print {
+      visibility: visible !important;
+      pointer-events: none !important;
+    }
+
+    .stage.is-preparing-close .cover {
+      transition: none !important;
+      opacity: 0 !important;
+    }
+
+    .stage.is-open.is-preparing-close .left-cover {
+      -webkit-transform: translate3d(-10px, 0, 0) rotateY(-88deg) scaleX(.12) !important;
+      transform: translate3d(-10px, 0, 0) rotateY(-88deg) scaleX(.12) !important;
+    }
+
+    .stage.is-open.is-preparing-close .right-cover {
+      -webkit-transform: translate3d(10px, 0, 0) rotateY(88deg) scaleX(.12) !important;
+      transform: translate3d(10px, 0, 0) rotateY(88deg) scaleX(.12) !important;
+    }
+
+    .stage.is-closing .cover {
+      visibility: visible !important;
+      opacity: 1 !important;
+      transition: transform .82s var(--ease-fold) !important;
+    }
+
+    .stage.is-open.is-closing .left-cover,
+    .stage.is-open.is-closing .right-cover {
+      -webkit-transform: translate3d(0, 0, 0) rotateY(0deg) scaleX(1) !important;
+      transform: translate3d(0, 0, 0) rotateY(0deg) scaleX(1) !important;
+    }
+  }
+}
